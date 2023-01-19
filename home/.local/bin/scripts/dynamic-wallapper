@@ -1,0 +1,10 @@
+#!/usr/bin/env bash 
+
+walls="$HOME/.wallpapers"
+COOLDOWN=3600
+
+while :
+do
+    feh -z --bg-fill $walls
+    sleep $COOLDOWN
+done

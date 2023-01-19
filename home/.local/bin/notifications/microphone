@@ -1,0 +1,24 @@
+#!/bin/bash
+
+function get_status {
+    STATUS=$(pactl get-source-mute @DEFAULT_SOURCE@ | sed 's/Mute: //')
+    echo $STATUS
+}
+
+function send_notification {
+    ICON="~/.local/bin/notifications/icons/microphone.png"
+    ICON_MUTED="~/.local/bin/notifications/icons/microphone-mute.png"
+
+    if [ "$(get_status)" == "yes" ]; then
+        notify-send -i $ICON_MUTED -r 999 -u normal " "
+    else
+        notify-send -i $ICON -r 999 -u normal " "
+    fi
+}
+
+case $1 in
+    toggle) 
+        pactl set-source-mute @DEFAULT_SOURCE@ toggle
+        send_notification
+        ;;
+esac

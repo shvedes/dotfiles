@@ -1,0 +1,5 @@
+# Change idVendor to your Android device. You can find idVendor by run lsusb
+# Plug in
+ACTION=="add", SUBSYSTEM=="usb", ATTRS{idVendor}=="18d1", ENV{XAUTHORITY}="/home/shved/.Xauthority" RUN+="/usr/bin/su shved -c '/home/shved/.local/bin/notifications/mtp'"
+# Unplug
+ACTION=="remove", SUBSYSTEM=="usb", ATTRS{idVendor}=="18d1", ENV{XAUTHORITY}="/home/shved/.Xauthority" RUN+="/usr/bin/su shved -c '/home/shved/.local/bin/notifications/mtp'"

@@ -1,0 +1,14 @@
+#!/bin/bash
+# https://github.com/shvedes/dotfiles
+
+export DISPLAY=:0
+export XAUTHORITY=/home/shved/.Xauthority
+export DBUS_SESSION_BUS_ADDRESS="unix:path=/run/user/1000/bus"
+
+ICON="$HOME/.local/bin/notifications/icons/phone.png"
+
+if [ "$ACTION" = "add" ]; then
+    notify-send -a "MTP" -i $ICON -u normal -r 996 "Android device connected"
+else
+    notify-send -a "MTP" -i $ICON -u normal -r 995 "Android device disconnected"
+fi

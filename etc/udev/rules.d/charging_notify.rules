@@ -1,0 +1,5 @@
+# Battery
+ACTION=="change", SUBSYSTEM=="power_supply", ATTR{type}=="Mains", ATTR{online}=="0", ENV{DISPLAY}=":0", ENV{XAUTHORITY}="/home/shved/.Xauthority" RUN+="/usr/bin/su shved -c '/home/shved/.local/bin/notifications/charging_notify 0'"
+# AC
+ACTION=="change", SUBSYSTEM=="power_supply", ATTR{type}=="Mains", ATTR{online}=="1", ENV{DISPLAY}=":0", ENV{XAUTHORITY}="/home/shved/.Xauthority" RUN+="/usr/bin/su shved -c '/home/shved/.local/bin/notifications/charging_notify 1'"
+

@@ -1,0 +1,5 @@
+# Change sd? to your correct name (if needed)
+# Plug in usb drive
+KERNEL=="sd?", ACTION=="add", RUN+="/usr/bin/su shved -c '/home/shved/.local/bin/notifications/disk'"
+# Unplug usb drive
+KERNEL=="sd?", ACTION=="remove", RUN+="/usr/bin/su shved -c '/home/shved/.local/bin/notifications/disk'"

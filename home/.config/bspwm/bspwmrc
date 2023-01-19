@@ -1,0 +1,71 @@
+#!/usr/bin/env bash
+
+# --- Aviable displays/monitors --- #
+INTERNAL_MONITOR="eDP"
+EXTERNAL_MONITOR="HDMI-A-0"
+
+# --- Settings for multiple monitors --- #
+if [ "$(xrandr -q | grep -o 'HDMI-A-0 connected')" = "HDMI-A-0 connected" ]; then
+    xrandr --output eDP --mode 1920x1200 --output HDMI-A-0 --primary --mode 1920x1080 --rate 120 --rotate normal --left-of eDP 
+    bspc monitor HDMI-A-0 -d I II III IV V VI VII VIII IX X
+    bspc monitor -f HDMI-A-0
+    $HOME/.local/bin/bspwm/startup.sh &
+else
+    xrandr --output eDP --mode 1920x1200
+    bspc monitor eDP -d I II III IV V VI VII VIII IX X
+    $HOME/.local/bin/bspwm/startup.sh &
+fi
+    
+
+# Appearance --------------------------------------------------------------------------------------------------------------- #
+
+bspc config window_gap                 7
+bspc config border_width               1
+bspc config pointer_motion_interval    30
+
+bspc config normal_border_color    "#7c6f64"
+bspc config focused_border_color   "#a06943"
+bspc config active-border_color    "#a06943"
+
+# Windows rules --------------------------------------------------------------------------------------------------------------- #
+
+# --- Thunar --- # 
+bspc rule -a Thunar                             desktop='^6' center=on  follow=on  state=floating   rectangle=1300x700+0+0
+bspc rule -a Thunar:*:'Create New Folder'                    center=on  follow=on  state=floating   rectangle=800x400+0+0
+bspc rule -a Thunar:*:'File Operation Progress'              center=on  follow=on  state=floating   rectangle=800x400+0+0
+bspc rule -a Thunar:*:'Error'                                center=on  follow=on  state=floating   rectangle=400x100+0+0
+bspc rule -a Thunar:*:'Attention'                            center=on  follow=on  state=floating   rectangle=400x200+0+0
+bspc rule -a File-roller                                     center=on  follow=on  state=floating   rectangle=950x500+0+0
+
+# --- Firefox --- #
+bspc rule -a firefox                            desktop='^3' center=on  follow=on  state=tlied
+bspc rule -a firefox:*:'Library'                             center=on  follow=on  state=floating   rectangle=900x500+0+0
+
+# --- Telegram --- #
+bspc rule -a TelegramDesktop                    desktop='^4' center=on  follow=on  
+bspc rule -a TelegramDesktop:*:'Choose Files'                center=on  follow=on  state=floating   rectangle=800x400+0+0
+bspc rule -a TelegramDesktop:*:'Media viewer'                center=on  follow=off state=fullscreen 
+
+# --- VS Code --- # 
+bspc rule -a code                               desktop='^1' center=on  follow=on
+bspc rule -a code:*:'Open Folder'                            center=on  follow-on  state=floating   rectangle=1200x500+0+0
+
+# --- Chrome --- #
+bspc rule -a Google-chrome                      desktop='^3'            follow=on  state=tiled 
+bspc rule -a Google-chrome:*:'Open File'                                follow=on  state=floating rectangle=950x500+0+0
+bspc rule -a Google-chrome:*:'Open Files'                               follow=on  state=floating rectangle=950x500+0+0
+bspc rule -a Google-chrome:*:'Save File'                                follow=on  state=floating rectangle=950x500+0+0
+
+# --- Other apps --- #
+bspc rule -a obs                                desktop='^7' center=on  follow=off state=floating   rectangle=1300x700+0+0
+bspc rule -a mpv                                desktop='^7' center=on  follow=on  state=tiled            
+bspc rule -a feh                                             center=on  follow=on  state=fullscreen
+bspc rule -a qBittorrent                        desktop='^9' center=on  follow=on  state=floating   rectangle=1200x650+0+0
+bspc rule -a Zathura                                         center=on  follow=on  state=floating
+bspc rule -a discord                            desktop='^5'
+bspc rule -a Spotify                            desktop='^2' center=on  follow=on  state=pseudo_tiled rectangle=1600x850+0+0
+bspc rule -a osu!.exe                           desktop='^2' center=off follow=on  state=fullscreen # --- Yeah, i'm playing osu :) --- #
+bspc rule -a Pavucontrol                                     center=on  follow=on  state=floating rectangle=1600x850+0+0 
+
+# --- GTK file chooser --- # 
+bspc rule -a *:*:'Save As'                                   center=on                              rectangle=950x500+0+0

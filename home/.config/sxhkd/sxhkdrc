@@ -1,0 +1,192 @@
+
+# BSPWM 
+
+# --- Restart BSPWM and sxhkd --- #
+super + shift + r
+	bspc wm -r
+
+# --- Quit BSPWM --- #
+ctrl + alt + q 
+    killall bash \
+    bspc quit
+
+# --- Toggle between tiled and monocle mode --- #
+super + m
+	bspc desktop -l next
+
+# --- Close window --- #
+super + q
+    bspc node -c
+
+# --- Kill current window --- #
+super + shift + q 
+    bspc node -k
+
+# --- Tiled / pseudo_tiled mode --- #
+super + t
+    bspc node -t {pseudo_tiled,tiled}
+
+# --- Floating / tiled mode --- #
+super + shift + f
+    bspc node -t "~"{floating,tiled}
+
+# --- Swap to next / prev workspace --- #
+ctrl + alt + {Left,Right}
+	bspc desktop -f {prev.local,next.local}
+
+# --- Switch to workspace --- #
+super + {1,2,3,4,5,6,7,8,9,0}
+    bspc desktop -f {I,II,III,IV,V,VI,VII,VIII,IX,X}
+
+# --- Last used workspac (like win+tab in Windows, but workspaces) --- #
+super + Tab 
+    bspc desktop -f last
+
+# --- Focus on next / previous monitor --- # 
+super + shift + n
+    bspc monitor -f last
+
+
+# WINDOWS (not Microsoft xd)
+
+
+# --- Focus (super + {jkl;}) and swap (super + shift + {jkl;}) windows --- #
+super + {_,shift + }{j,k,l,semicolon}
+    bspc node --{focus,swap} {west,east,south,north}
+
+# --- Focus floating / tiles / next window --- #
+super + {_,shift + }n
+	bspc node -f {next,prev}.local.!hidden.window
+
+# --- Fullscreen mode --- #
+super + f
+    bspc node -t "~"fullscreen
+
+# --- Resize windows --- #
+super + shift + {Left,Down,Up,Right}
+  STEP=40; SELECTION={1,2,3,4}; \
+  bspc node -z $(echo "left -$STEP 0,bottom 0 $STEP,top 0 -$STEP,right $STEP 0" | cut -d',' -f$SELECTION) || \
+  bspc node -z $(echo "right -$STEP 0,top 0 $STEP,bottom 0 -$STEP,left $STEP 0" | cut -d',' -f$SELECTION)
+
+# --- Move active window to workspace {number} --- #
+super + shift + {1-9,0}
+    bspc node -d '^{1-9,10}'
+
+# --- Move active window to second monitor (in my case is HDMI-A-0)
+ctrl + alt + n
+    bspc node -m last --follow
+
+# --- Rotate active window --- #
+super + r
+    bspc node @parent -R 90
+
+
+# APPS ---------------------------------------------------------------- #
+
+
+# --- Open drop-down terminal (in this case is alacritty) --- #
+super + {_,shift +}Return
+	{alacritty, bspc rule -a \* -o state=floating sticky=on layer=above rectangle=720x360+600+26 && alacritty}
+
+# --- Open terminal emulator --- #
+super + Return 
+    alacritty
+
+# --- Open file explorer --- # 
+super + e
+    thunar
+
+# --- Open Spotify --- #
+ctrl + alt + s
+    spotify
+
+# --- Open Firefox --- #
+ctrl + alt+ f
+    firefox
+
+# --- Open Google Chrome --- #
+ctrl + alt + c 
+    google-chrome-stable
+
+# --- Open Discord --- #
+ctrl + alt + d 
+    discord
+
+# Other ---------------------------------------------------------------- #
+
+# --- Open application launcher --- #
+super + a
+    sh ~/.config/rofi/launchers/launcher/launcher.sh
+
+# --- Open clipboard menu --- #
+super + v
+    sh ~/.config/rofi/launchers/clipboard/clipboard.sh
+
+# --- Change wallpaper --- #
+super + shift + w
+    feh -z --bg-fill ~/.wallpapers
+
+# --- Clear clipboard (once) --- #
+super + shift + v
+    greenclip clear
+
+# --- Lock session --- #
+ctrl + shift + l
+    betterlockscreen -l
+
+# --- Powermenu --- #
+super + p 
+    ~/.config/rofi/launchers/powermenu/launch.sh
+
+# --- Color picker (with copy to clipboard) --- #
+super + shift + c
+    ~/.local/bin/scripts/colors/color_picker
+
+# ---------------------------------------------------------------- #
+
+# ----- All screenshot will be copied to clipboard ----- #
+
+# --- Take screenshot of selected area --- #
+super + shift + s
+    maim -u -o -s | xclip -selection clipboard -t image/png
+
+# --- Tke screenshot of active window --- #
+super + shift + a
+    maim -i -B $(xdotool getactivewindow) | xclip -selection clipboard -t image/png
+
+# --- Fullscreen screenshot --- #
+super + shift + z
+    maim -u | xclip -selection clipboard -t image/png
+
+# ---------------------------------------------------------------- #
+
+# brighness control 
+XF86MonBrightnessUp 
+    $HOME/.local/bin/notifications/brightness up
+XF86MonBrightnessDown
+    $HOME/.local/bin/notifications/brightness down
+
+# ---------------------------------------------------------------- #
+
+# volume control
+XF86AudioRaiseVolume 
+    $HOME/.local/bin/notifications/volume up
+XF86AudioLowerVolume
+    $HOME/.local/bin/notifications/volume down
+XF86AudioMute   
+    $HOME/.local/bin/notifications/volume mute
+# Mic
+XF86AudioMicMute
+    $HOME/.local/bin/notifications/microphone toggle
+# Same but external keyboard
+XF86AudioStop
+    $HOME/.local/bin/notifications/microphone toggle
+
+# media keys 
+XF86AudioPrev
+    playerctl previous
+XF86AudioNext
+    playerctl next
+XF86AudioPlay
+    playerctl play-pause
+

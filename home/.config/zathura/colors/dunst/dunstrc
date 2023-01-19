@@ -1,0 +1,104 @@
+[global]
+
+monitor                     = 0
+
+# appearance
+font                        = Monoscape 11
+frame_width                 = 1
+gap_size                    = 5
+transparency                = 30
+separator_height            = 4
+separator_color             = foreground
+corner_radius               = 0
+padding                     = 4
+horizontal_padding          = 4
+origin                      = top-right
+offset                      = 10x30
+width                       = 400
+height                      = 400
+
+
+# icons
+icon_theme                  = Stylish           # icon theme, which be used
+icon_position               = left              # icon position
+min_icon_size               = 64                # minimal icon size
+max_icon_size               = 64                # maximum icon size
+text_icon_padding           = 15                # padding between text and icon
+
+# progress bar
+progress_bar                = true
+progress_bar_height         = 10
+progress_bar_frame_width    = 1
+progress_bar_min_width      = 150
+progress_bar_max_width      = 300
+
+# main settings
+sort                        = yes               # sort notifications by urgency 
+line_height                 = 2                 # spacing between lines
+markup                      = full              # allow a small subset of html markup in notifications
+format                      = "<b>%s</b>\n%b"   # format of notification
+alignment                   = left              # text alignment 
+timeout                     = 3                 # timeout for notifications
+vertical_alignment          = center            # vertical alignment of message text and icon
+ellipsize                   = end               # specify where to make an ellipsis in long lines
+ignore_newline              = no                # ignore new lines in notifications
+stack_duplicates            = false             # stack dublicate notifications (boolean)
+indicate_hidden             = false             # show indicator of hidden notifications
+show_indicators             = false             # show indicators (like link)
+browser                     = /usr/bin/firefox  # browser for opening links
+title                       = Dunst             # default title of window
+class                       = dunst             # default class of window
+
+mouse_left_click            = open_url, close_current, do_action
+
+# main
+
+   # [urgency_low]
+   # frame_color                 = "#8caaee"
+   # background                  = "#000000"
+   # foreground                  = "#ffffff"
+   # [urgency_normal]
+   # frame_color                 = "#8caaee"
+   # background                  = "#000000"
+   # foreground                  = "#ffffff"
+   # [urgency_critical]
+   # frame_color                 = "#e78284"
+   # background                  = "#000000"
+   # foreground                  = "#ffffff"
+   # timeout                     = 10
+
+# gruvbox 
+
+ [urgency_low]
+ frame_color                 = "#c08951"
+ background                  = "#282828"
+ foreground                  = "#ebdbb2"
+ [urgency_normal]
+ frame_color                 = "#c08951"
+ background                  = "#282828"
+ foreground                  = "#ebdbb2"
+ [urgency_critical]
+ frame_color                 = "#cc241d"
+ background                  = "#282828"
+ foreground                  = "#ebdbb2"
+ timeout                     = 10
+
+# mocha 
+# [global]
+# frame_color = "#89B4FA"
+# separator_color= frame
+#
+# [urgency_low]
+# background = "#1E1E2E"
+# foreground = "#CDD6F4"
+#
+# [urgency_normal]
+# background = "#1E1E2E"
+# foreground = "#CDD6F4"
+#
+# [urgency_critical]
+# background = "#1E1E2E"
+# foreground = "#CDD6F4"
+# frame_color = "#FAB387"
+
+# vim:ft=cfg

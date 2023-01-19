@@ -1,0 +1,20 @@
+#!/bin/bash
+# https://github.com/shvedes/dotfiles
+
+function send_notification {
+    ICON=" "
+    BRIGHTNESS=$(brightnessctl g)
+    BAR=$(seq -w --separator="─" 0 $((BRIGHTNESS / 2)) | sed 's/[0-9]//g')
+    notify-send -r 999 -u normal " $ICON $BAR"
+}
+
+case $1 in
+    up)
+        brightnessctl -q s +1%
+        send_notification
+        ;;
+    down)
+        brightnessctl -q s 1-%
+        send_notification
+        ;;
+esac
