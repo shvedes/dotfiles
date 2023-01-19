@@ -35,6 +35,7 @@
   - **[Cursors](#cursors)**
 - **[Neovim](#Neovim)**
 - **[Dependencies](#dependencies)**
+- **[ToDo](#ToDo)**
 - **[Shortcuts](#bspwm-shortcuts)**
 - **[Known issues](#known-issues)**
 
@@ -91,7 +92,8 @@
 - **[OneDark](https://github.com/navarasu/onedark.nvim/blob/master/lua/onedark/palette.lua)**
 
 ### **Neovim**
-**Soon...**
+
+**You can find my Neovim configuration [here](https://github.com/shvedes/nvim)**
 
 ### **Dependencies**
 
@@ -102,6 +104,11 @@ git clone https://github.com/shvedes/dotfiles --branch=next
 cd dotfiles
 yay -S --neended --noconfirm $(cat DEPENDENCIES)
 ```
+
+### **ToDo**
+
+- **OneDark**
+- **Gruvbox Light**
 
 ### **Shortcuts**
 
