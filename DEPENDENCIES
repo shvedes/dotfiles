@@ -2,7 +2,7 @@ acpi
 alacritty
 brightnessctl
 bspwm
-htop
+btop
 calf
 cronie
 dunst
@@ -17,6 +17,7 @@ gvfs-mtp
 linux-headers
 lxappearance
 lxsession
+ly
 maim
 man-db
 neofetch
