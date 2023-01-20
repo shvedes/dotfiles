@@ -1,0 +1,47 @@
+
+import:
+  - ~/.config/alacritty/colors/gruvbox.yml
+env:
+  TERM: alacritty
+
+font:
+  normal:
+    family: SourceCode Pro
+    style: Semibold
+  bold:
+    family: SourceCode Pro
+    style: Bold
+  italic:
+    family: SourceCode Pro
+    style: Italic
+  bold_italic:
+    family: SourceCode Pro
+    style: Bold Italic
+  size: 12
+
+window:
+  startup_mode: Windowed
+  dynamic_padding: true
+  dynamic_title: true
+  title: Alacritty
+  opacity: 1
+
+cursor:
+  style:
+    shape: Block
+    blinking: Off
+  unfocused_hollow: false
+  hide_when_typing: true
+
+scrolling:
+  history: 1000
+  multiplier: 3
+
+selection: 
+  save_to_clipboard: true
+
+draw_bold_text_with_bright_colors: true
+live_config_reload: true
+alt_send_esc: true
+ipc_socket: false
+shell: /bin/zsh

@@ -1,0 +1,48 @@
+colors:
+    primary:
+        background: '#32302f'
+        foreground: '#ebdbb2'
+        dim_foreground: '#928374'
+    cursor:
+        text: '#282828'
+        cursor: '#ebdbb2'
+    vi_mode_cursor:
+        text: '#282828'
+        cursor: '#ebdbb2'
+    selection:
+        text: '#fbf1c7'
+        background: '#3c3836'
+    search:
+        matches:
+            foreground: '#3c3836'
+            background: '#b8bb26'
+            footer_bar:
+            background: '#282828'
+            foreground: '#ebdbb2'
+    normal:
+        black: '#282828'
+        red: '#cc241d'
+        green: '#98971a'
+        yellow: '#d79921'
+        blue: '#458588'
+        magenta: '#b16286'
+        cyan: '#689d6a'
+        white: '#a89984'
+    bright:
+        black: '#928374'
+        red: '#cc241d'
+        green: '#98971a'
+        yellow: '#d79921'
+        blue: '#458588'
+        magenta: '#b16286'
+        cyan: '#689d6a'
+        white: '#fbf1c7'
+    dim:
+        black: '#504945'
+        red: '#cc241d'
+        green: '#98971a'
+        yellow: '#d79921'
+        blue: '#458588'
+        magenta: '#b16286'
+        cyan: '#689d6a'
+        white: '#7c6f64'
