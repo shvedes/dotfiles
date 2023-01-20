@@ -1,0 +1,59 @@
+{
+    "layer": "top",
+    "spacing": 10,
+    "modules-left": ["hyprland/window"],
+    "modules-center": ["wlr/workspaces"],
+    "modules-right":  ["battery", "hyprland/language", "network", "clock"],
+    
+
+    // modules 
+
+    "clock": {
+            "interval": 60,
+            "format": "   {:%H:%M} ",
+            },
+
+    "battery": {
+            "bat": "BAT0",
+            "adapter": "ADP1", 
+            "full-at": 96,
+            "format": "   {capacity}% ",
+        },
+
+    "network": {
+            "interface": "wlp1s0", "interval":  3,
+            "format": "   {essid} ",
+            "format-disconnected": "   Disconnected ",
+        },
+
+    "hyprland/language": {
+        "format": "  {} ",
+        "format-en": "en",
+        "format-ru": "ru",
+    },
+
+    "hyprland/window": {
+            "format": "{}",
+            "separate-outputs": true,
+        },
+    
+    "wlr/workspaces": {
+      "format": "{icon}",
+      "on-click": "activate",
+      "sort-by-number": true,
+      "active-only": false,
+      "format-icons": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6",
+        "7": "7",
+        "8": "8",
+        "9": "9",
+        "10": "10",
+        }
+    }
+}
+

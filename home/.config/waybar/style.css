@@ -1,0 +1,83 @@
+* {
+    font-family: SourceCodeProSemibold;
+    font-size: 16px;
+    color: #d3d3d3;
+    background: black;
+    padding-right: 5px;
+    padding-left: 5px;
+}
+
+#clock {
+    border-bottom:  2px solid;
+    border-bottom-color: #9fbcff;
+    padding-bottom: 3px;
+}
+
+#battery {
+    border-bottom:  2px solid;
+    border-bottom-color: #9fbcff;
+    padding-bottom: 3px;
+}
+
+#network {
+    border-bottom:  2px solid;
+    border-bottom-color: #9fbcff;
+    padding-bottom: 3px;
+}
+
+#network.disconnected {
+    border-bottom:  2px solid;
+    border-bottom-color: #e78284;
+    padding-bottom: 2px;
+}
+
+#language {
+    border-bottom:  2px solid;
+    border-bottom-color: #9fbcff;
+    padding-bottom: 2px;
+}
+
+#window { 
+    padding-left: 2px;   
+}
+
+/* WORKSPACES */
+
+#workspaces {
+    background: transparent;
+    border-radius: 0px;
+}
+
+#workspaces button {
+    padding-left: 17px;
+    padding-right: 17px;
+    border-radius: 0px;
+}
+
+#workspaces button.active {
+    padding-left: 17px;
+    padding-right: 17px;
+    border-bottom: 1px solid;
+    border-bottom-color: #9fbcff;
+}
+
+#workspaces button.hidden {
+    padding-left: 17px;
+    padding-right: 17px;
+    border-bottom: 1px solid;
+    background: #5b5b5b;
+}
+
+#workspaces button.visible {
+    padding-left: 17px;
+    padding-right: 17px;
+    border-bottom: 1px solid;
+    background: #5b5b5b;
+    border-bottom-color: #9fbcff;
+}
+
+#workspaces button.urgent {
+    padding-left: 17px;
+    padding-right: 17px;
+    background: #e78284;
+}
