@@ -51,22 +51,6 @@ class                       = dunst             # default class of window
 
 mouse_left_click            = open_url, close_current, do_action
 
-# main
-
-   # [urgency_low]
-   # frame_color                 = "#8caaee"
-   # background                  = "#000000"
-   # foreground                  = "#ffffff"
-   # [urgency_normal]
-   # frame_color                 = "#8caaee"
-   # background                  = "#000000"
-   # foreground                  = "#ffffff"
-   # [urgency_critical]
-   # frame_color                 = "#e78284"
-   # background                  = "#000000"
-   # foreground                  = "#ffffff"
-   # timeout                     = 10
-
 # gruvbox 
 
  [urgency_low]
