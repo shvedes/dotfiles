@@ -5,7 +5,6 @@ configuration {
     me-accept-entry:            [ MousePrimary, MouseSecondary, MouseDPrimary ];
 }
 
-@import                          "~/.config/rofi/colors/main.rasi"
 @import                          "~/.config/rofi/fonts.rasi"
 
 * {

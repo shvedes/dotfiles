@@ -53,19 +53,19 @@ mouse_left_click            = open_url, close_current, do_action
 
 # gruvbox 
 
- [urgency_low]
- frame_color                 = "#c08951"
- background                  = "#282828"
- foreground                  = "#ebdbb2"
- [urgency_normal]
- frame_color                 = "#c08951"
- background                  = "#282828"
- foreground                  = "#ebdbb2"
- [urgency_critical]
- frame_color                 = "#cc241d"
- background                  = "#282828"
- foreground                  = "#ebdbb2"
- timeout                     = 10
+ # [urgency_low]
+ # frame_color                 = "#c08951"
+ # background                  = "#282828"
+ # foreground                  = "#ebdbb2"
+ # [urgency_normal]
+ # frame_color                 = "#c08951"
+ # background                  = "#282828"
+ # foreground                  = "#ebdbb2"
+ # [urgency_critical]
+ # frame_color                 = "#cc241d"
+ # background                  = "#282828"
+ # foreground                  = "#ebdbb2"
+ # timeout                     = 10
 
 # mocha 
 # [global]
@@ -84,5 +84,22 @@ mouse_left_click            = open_url, close_current, do_action
 # background = "#1E1E2E"
 # foreground = "#CDD6F4"
 # frame_color = "#FAB387"
+
+# Nord
+[urgency_low]
+frame_color = "#8fbcbb"
+background = "#2e3440"
+foreground = "#e5e9f0"
+
+[urgency_normal]
+frame_color = "#8fbcbb"
+background = "#2e3440"
+foreground = "#e5e9f0"
+
+[urgency_critical]
+frame_color = "#bf616a"
+background = "#2e3440"
+foreground = "#e5e9f0"
+timeout = 10 Nord 
 
 # vim:ft=cfg

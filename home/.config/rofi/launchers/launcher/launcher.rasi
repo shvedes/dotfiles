@@ -1,5 +1,5 @@
 
-@import "~/.config/rofi/colors/gruvbox.rasi"
+@import "~/.config/rofi/colors/nord.rasi"
 @import "~/.config/rofi/fonts.rasi"
 
 
