@@ -24,6 +24,11 @@
 
 </div>
 
+# **Note**
+
+**The old repository was moved [here](https://github.com/shvedes/dotfiles-archive)** 
+
+
 # **Table of contents** 
 
 - **[Environment](#Environment)**
