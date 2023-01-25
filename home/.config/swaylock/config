@@ -1,0 +1,38 @@
+# Font settings
+font=Source Code Pro Semibold
+font-size=14
+
+# Settings
+ignore-empty-password
+disable-caps-lock-text
+indicator-caps-lock
+
+show-keyboard-layout
+show-failed-attempts
+
+indicator-radius=100
+indicator-thickness=20
+
+# Colors
+bs-hl-color=ffffff
+
+key-hl-color=b4befe
+
+inside-color=b4befe
+inside-clear-color=b4befe
+inside-caps-lock-color=b4befe
+inside-ver-color=eba0ac
+inside-wrong-color=f38ba8
+
+ring-clear-color=cba6f7
+ring-caps-lock-color=f38ba8
+ring-ver-color=eba0ac
+ring-color=B794E1
+ring-wrong-color=D4738E
+
+text-color=cba6f7
+text-clear-color=1e1e2e
+
+caps-lock-key-hl-color=f38ba8
+
+# vim:ft=conf

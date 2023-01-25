@@ -1,0 +1,25 @@
+[memory]
+command=free -h --giga | awk '/Mem:/ { printf("RAM %5s / %s \n", $3, $2) }'
+interval=1
+
+[disk]
+command=$HOME/.config/i3blocks/scripts/disk.sh
+interval=once
+
+[cpu]
+command=$HOME/.config/i3blocks/scripts/cpu.sh
+interval=1
+
+[battery]
+command=$HOME/.config/i3blocks/scripts/battery.sh
+interval=60
+
+[wlan]
+command=echo Wlan $(nmcli connection show | awk '{print $1}' | sed '1d')
+interval=5
+
+[date]
+command=date +"%A %e, %B %H:%M:%S"
+interval=1
+color=#ffffff
+

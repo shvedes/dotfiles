@@ -1,0 +1,255 @@
+### Main
+
+## Set section
+set $mod Mod4
+
+## Monitors 
+output eDP-1 pos 1920 0 res 1920x1200 
+output HDMI-A-1 pos 0 0 res 1920x1080
+focus output HDMI-A-1
+
+# Automaticly disable internal laptop screen when lid is closed
+bindswitch --reload --locked lid:on output eDP-1 disable
+bindswitch --reload --locked lid:off output eDP-1 enable
+
+## Autostart 
+exec {
+    easyeffects --gapplication-service &
+    dunst &
+    gammastep -P -O 5500
+    lxpolkit &
+    dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
+}
+
+exec_always {
+    # gsettings set org.gnome.desktop.interface gtk-theme "Nord"
+    # gsettings set org.gnome.desktop.interface gtk-theme "Gruvbox-Material-Dark"
+    gsettings set org.gnome.desktop.interface gtk-theme "Catppuccin-Mocha-Standard-Lavender-Dark"
+    gsettings set org.gnome.desktop.interface icon-theme "Tela"
+}
+
+
+### Appearance
+font Source Code Pro Semibold 9
+titlebar_padding 3 1
+default_border pixel 2
+default_floating_border pixel 2
+output * bg #1E1E2E solid_color
+
+gaps inner 3
+gaps outer 3
+
+client.focused          #cba6f7 #cba6f7 #ffffff #cba6f7   #cba6f7
+client.focused_inactive #222222 #222222 #ffffff #222222   #222222
+client.unfocused        #4b4b4b #4b4b4b #ffffff #4b4b4b   #4b4b4b
+client.urgent           #f38ba8 #f38ba8 #ffffff #f38ba8   #f38ba8
+client.placeholder      #0c0c0c #0c0c0c #ffffff #000000   #0c0c0c
+
+### Lockscreen
+
+### Misc
+
+# Enable xwayland support
+xwayland enable
+
+
+
+### Input configuration
+
+## Keyboard
+input "type:keyboard" {
+    xkb_layout us,ru
+    # xkb_variant qwerty
+    xkb_options grp:alt_shift_toggle
+}
+
+## Touchpad
+input "10182:480:GXTP7863:00_27C6:01E0_Touchpad" {
+        accel_profile adaptive
+        click_method clickfinger
+        drag enabled
+        natural_scroll enabled
+        pointer_accel 0.5
+        scroll_method two_finger
+        tap enabled
+}
+
+## USB mouse
+input "1133:49298:Logitech_G203_LIGHTSYNC_Gaming_Mouse" {
+    pointer_accel -0.4
+}
+
+
+## Mouse actions
+focus_follows_mouse no
+
+## Floating modifier
+floating_modifier $mod normal
+
+
+
+### Key bindings
+
+bindsym --to-code {
+
+##  Windows and workspaces
+
+    # Focus windows
+    $mod+j focus left
+    $mod+k focus right
+    $mod+l focus down      
+    $mod+semicolon focus up
+
+    # Moving windows
+    $mod+Shift+j move left
+    $mod+Shift+l move down     
+    $mod+Shift+semicolon move up
+    $mod+Shift+k move right
+
+    # Switch to workspace
+    $mod+1 workspace number 1
+    $mod+2 workspace number 2
+    $mod+3 workspace number 3
+    $mod+4 workspace number 4
+    $mod+5 workspace number 5
+    $mod+6 workspace number 6
+    $mod+7 workspace number 7
+    $mod+8 workspace number 8
+    $mod+9 workspace number 9
+    $mod+0 workspace number 10
+
+    # Last used workspace 
+    $mod+Tab workspace back_and_forth
+
+    # Move focused window to workspace
+    $mod+Shift+1 move container to workspace number 1
+    $mod+Shift+2 move container to workspace number 2
+    $mod+Shift+3 move container to workspace number 3
+    $mod+Shift+4 move container to workspace number 4
+    $mod+Shift+5 move container to workspace number 5
+    $mod+Shift+6 move container to workspace number 6
+    $mod+Shift+7 move container to workspace number 7
+    $mod+Shift+8 move container to workspace number 8
+    $mod+Shift+9 move container to workspace number 9
+    $mod+Shift+0 move container to workspace number 10
+
+    # Move focused window to next workspace
+    # Control+Alt+Right move container to workspace next
+    # Control+Alt+Left  move container to workspace prev
+
+    # Next / prev workspace
+    Control+Alt+Right workspace next
+    Control+Alt+Left  workspace prev
+
+    # Split new window 
+    $mod+b splith
+    $mod+v splitv
+
+    # Layout 
+    # $mod+s layout toggle stacking
+    # $mod+m layout toggle tabbed
+    # $mod+r layout toggle split
+
+    # Fullscreen mode
+    $mod+f fullscreen
+
+    # Toggle the current focus between tiling and floating mode
+    $mod+Shift+f floating toggle
+
+    # Focus between tiled and floating
+    $mod+n focus mode_toggle
+
+## Scratchpad
+    
+    # Move window to scratchpad
+    $mod+Shift+minus move scratchpad
+    # Restore window from scratchpad
+    $mod+minus scratchpad show
+
+
+## Other bindings
+
+    # Volume management
+    XF86AudioRaiseVolume exec $HOME/.local/bin/notifications/volume up
+    XF86AudioLowerVolume exec $HOME/.local/bin/notifications/volume down
+    XF86AudioMute        exec $HOME/.local/bin/notifications/volume mute
+    XF86AudioMicMute     exec $HOME/.local/bin/notifications/microphone toggle
+    # Same as above, but for external keyboard
+    XF86AudioStop        exec $HOME/.local/bin/notifications/microphone toggle
+    # Media control
+    XF86AudioPrev        exec playerctl previous
+    XF86AudioNext        exec playerctl next
+    XF86AudioPlay        exec playerctl play-pause
+
+
+    # Screenshots
+    
+    # Active window (don't work)
+    # $mod+Shift+a exec grim -g "$(swaymsg -t get_tree | jq -r '.. | select(.focused?) | .rect | "\(.x),\(.y) \(.width)x\(.height)"')" - | wl-copy
+    # Fullscreen 
+    $mod+Shift+z exec grim - | wl-copy
+    # Area
+    $mod+Shift+s exec grim -g "$(slurp -b 00000080 -c 00000080)" - | wl-copy
+
+    # Applications
+    Control+Alt+s exec spotify
+    Control+Alt+c exec google-chrome-stable
+    Control+Alt+d exec discord
+    $mod+e exec thunar
+
+## Misc
+
+    # Move focus to the parent container
+    Alt+Tab focus parent
+
+    # Exit sway
+    Control+Alt+q exec killall sway
+    
+    # Resize mode toggle
+    # $mod+r mode "resize"
+
+    # Open terminal
+    $mod+return exec alacritty
+
+    # App launcher
+    $mod+a exec ~/.config/rofi/launchers/launcher/launcher.sh
+
+    # Close focused window
+    $mod+q kill
+
+    # Reload the configuration file
+    $mod+Shift+r reload
+
+    # Color picker
+    $mod+Shift+c exec ~/.local/bin/scripts/colors/color_picker_wayland.sh
+
+    # Lock session
+    Control+Shift+l exec $HOME/.config/swaylock/lock_session.sh
+}
+
+### Window rules
+assign [app_id="google-chrome"] 3
+assign [app_id="firefox"] 3
+assign [app_id="(telegram|TelegramDesktop)"] 4
+assign [app_id="(Spotify|spotify)"] 2
+assign [app_id="(Discord|discord)"] 5
+assign [app_id="obs"] 7
+
+bar {
+
+    position bottom
+    font Source Code Pro Semibold 9
+    separator_symbol " ┃ "
+    gaps 0 5 0 6
+
+    # ~/.config/i3blocks
+    status_command i3blocks
+
+    colors {
+        background  #161622
+        separator   #ffffff
+        statusline  #ffffff
+        inactive_workspace  #31283D #31283D #6c7086
+        focused_workspace   #cba6f7 #cba6f7 #ffffff
+    }
+}
