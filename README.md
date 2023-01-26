@@ -21,6 +21,7 @@
 | --- | --- |
 | ![Overview_3](assets/Overview_2.png) | ![Overview_4](assets/Overview_3.png) |
 | ![Overview_5](assets/Power_menu.png) | ![Overview_6](assets/Lockscreen.png) |
+| ![Overview_7](assets/i3_and_sway_1.png) | ![Overview](assets/i3_and_sway_2.png) |
 
 </div>
 
