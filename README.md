@@ -3,7 +3,7 @@
 </p>
 
 <p align="center">
-  <b> ~ Minimalistic BSPWM dotfiles ~ </b>
+  <b> ~ Minimalistic BSPWM & i3 dotfiles ~ </b>
 </p>
 
 
