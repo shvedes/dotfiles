@@ -1,0 +1,123 @@
+@import                          "~/.config/rofi/colors/i3.rasi"
+@import                          "~/.config/rofi/fonts.rasi"
+
+configuration {
+	modi:                       "drun,run";
+    show-icons:                 false;
+    display-drun:               "";
+	drun-display-format:        "{name}";
+}
+
+window {
+    transparency:                "real";
+    location:                    south;
+    anchor:                      south;
+    width:                       100%;
+    children:                    [ horibox ];
+    enabled:                     true;
+    margin:                      -7px;
+    cursor:                      "default";
+}
+
+horibox {
+    background-color:            var(background);
+    text-color:                  var(foreground);
+    orientation:                 horizontal;
+    children:                    [ "prompt", "textbox-prompt-colon","entry", "listview" ];
+}
+
+mainbox {
+    enabled:                     true;
+    spacing:                     20px;
+    padding:                     40px;
+    background-color:            transparent;
+    children:                    [ "inputbar", "message", "listview", "mode-switcher" ];
+}
+
+inputbar {
+    enabled:                     true;
+    spacing:                     10px;
+    padding:                     8px;
+    border-radius:               4px;
+    background-color:            var(background);
+    text-color:                  var(foreground);
+    children:                    [ "prompt", "entry" ];
+}
+
+prompt {
+    enabled:                     true;
+    padding:                     6px;
+    background-color:            inherit;
+    text-color:                  inherit;
+}
+
+textbox-prompt-colon {
+    enabled:                     true;
+    padding:                     10px 0px 10px 0px;
+    expand:                      false;
+    str:                         "Run:";
+    background-color:            inherit;
+    text-color:                  inherit;
+}
+
+entry {
+    enabled:                     true;
+    padding:                     10px;
+    expand:                      false;
+    width:                       20em;
+    background-color:            inherit;
+    text-color:                  inherit;
+    cursor:                      text;
+    placeholder-color:           inherit;
+}
+
+listview {
+    enabled:                     true;
+    columns:                     1;
+    lines:                       100;
+    cycle:                       true;
+    dynamic:                     true;
+    layout:                      horizontal;
+    
+    spacing:                     5px;
+    background-color:            transparent;
+    text-color:                  var(foreground);
+    cursor:                      "default";
+}
+
+element {
+    enabled:                     true;
+    spacing:                     8px;
+    padding:                     10px 8px;
+    background-color:            transparent;
+    text-color:                  var(foreground);
+    cursor:                      pointer;
+}
+
+
+element normal.active {
+    background-color:            var(selected);
+    text-color:                  var(foreground);
+}
+
+element selected.normal {
+    background-color:            var(selected);
+    text-color:                  var(foreground);
+}
+
+element-text {
+    background-color:            transparent;
+    text-color:                  inherit;
+    highlight:                   inherit;
+    cursor:                      inherit;
+    vertical-align:              0.5;
+    horizontal-align:            0.0;
+}
+
+textbox {
+    padding:                     8px;
+    background-color:            var(urgent);
+    text-color:                  var(foreground);
+    vertical-align:              0.5;
+    horizontal-align:            0.0;
+}

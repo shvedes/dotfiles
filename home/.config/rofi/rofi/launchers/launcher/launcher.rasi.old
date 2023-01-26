@@ -1,0 +1,102 @@
+@import "~/.config/rofi/colors/catppuccin-mocha.rasi"
+@import "~/.config/rofi/fonts.rasi"
+
+
+configuration {
+    show-icons:                 true;
+	modi:                       "drun";
+    me-select-entry:            "";
+    me-accept-entry:            [ MousePrimary, MouseSecondary, MouseDPrimary ];
+	drun-display-format:        "{name}";
+}
+
+window {
+    background-color:            var(background);
+    border:                      1px solid;
+    border-color:                var(selected);
+    border-radius:               0;
+    location:                    center;
+    anchor:                      center;
+    width:                       650px;
+}
+
+mainbox {
+    padding:                     0px;
+    border-color:                var(selected);
+    background-color:            var(background-alt);
+    children:                    [ "inputbar", "listview" ];
+}
+
+inputbar {
+    padding:                     10px;
+    border:                      1px solid;
+    border-radius:               0px;
+    border-color:                var(selected);
+    background-color:            var(background);
+    text-color:                  var(foreground);
+    children:                    [ "entry" ];
+}
+
+entry {
+    background-color:            inherit;
+    placeholder:                 "Search...";
+    text-color:                  inherit;
+    cursor:                      text;
+}
+
+listview {
+    margin:                      10;
+    lines:                       8;
+    columns:                     1;
+    cycle:                       true;
+    background-color:            var(background);
+    text-color:                  var(foreground);
+    cursor:                      "default";
+}
+
+element {
+    padding:                     10px;
+    margin:                      7px;
+    border-color:                var(selected);
+    background-color:            var(background);
+    text-color:                  var(foreground);
+    cursor:                      pointer;
+}
+
+element normal.normal {
+    background-color:            var(background);
+    text-color:                  var(foreground);
+}
+
+element selected.normal {
+    border:                      1px solid;
+    border-radius:               4px;
+    border-color:                var(background-alt);
+    background-color:            var(selected);
+    text-color:                  var(background);
+}
+
+element-text {
+    background-color:            inherit;
+    text-color:                  inherit;
+    highlight:                   inherit;
+    cursor:                      inherit;
+    padding:                     5px;
+}
+
+error-message {
+    padding:                     10px;
+    background-color:            var(urgent);
+}
+
+textbox {
+    background-color:            inherit;
+    text-color:                  var(background);
+}
+
+element-icon {
+    background-color:            transparent;
+    text-color:                  inherit;
+    size:                        32;
+    cursor:                      inherit;
+}

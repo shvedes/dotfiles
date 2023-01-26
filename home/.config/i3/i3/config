@@ -1,0 +1,190 @@
+### Variables
+
+# Set keys
+set $mod mod4
+set $ctrl control
+set $alt mod1
+
+# Set terminal emulator app
+set $term alacritty
+
+### Autostart / output
+exec $HOME/.config/i3/autostart.sh
+
+### Appearance
+font pango:Source Code Pro Semibold 9
+default_border pixel 3
+default_floating_border pixel 3
+title_align center
+
+gaps inner 5
+gaps outer 0
+
+client.focused          #3C93B8 #3C93B8 #ffffff #3C93B8   #3C93B8
+client.focused_inactive #333333 #5f676a #ffffff #484e50   #5f676a
+client.unfocused        #333333 #222222 #888888 #292d2e   #222222
+client.urgent           #2f343a #BA4334 #ffffff #BA4334   #BA4334
+client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
+
+client.background       #ffffff
+
+## Catppuccin mocha
+# client.focused          #cba6f7 #cba6f7 #ffffff #cba6f7   #cba6f7
+# client.focused_inactive #222222 #222222 #ffffff #222222   #222222
+# client.unfocused        #4b4b4b #4b4b4b #ffffff #4b4b4b   #4b4b4b
+# client.urgent           #f38ba8 #f38ba8 #ffffff #f38ba8   #f38ba8
+# client.placeholder      #0c0c0c #0c0c0c #ffffff #000000   #0c0c0c
+
+
+### Bindings
+
+## Settings
+exec --no-startup-id xsetroot -cursor_name left_ptr
+floating_modifier $mod
+focus_follows_mouse no
+
+## Windows
+bindsym $mod+q kill
+
+## Focus
+bindsym $mod+j focus left
+bindsym $mod+k focus right
+bindsym $mod+l focus down
+bindsym $mod+semicolon focus up
+
+## Moving
+bindsym $mod+Shift+j move left
+bindsym $mod+Shift+k move right
+bindsym $mod+Shift+l move down
+bindsym $mod+Shift+semicolon move up
+
+## Switching workspaces
+bindsym $mod+1 workspace number 1
+bindsym $mod+2 workspace number 2
+bindsym $mod+3 workspace number 3
+bindsym $mod+4 workspace number 4
+bindsym $mod+5 workspace number 5
+bindsym $mod+6 workspace number 6
+bindsym $mod+7 workspace number 7
+bindsym $mod+8 workspace number 8
+bindsym $mod+9 workspace number 9
+bindsym $mod+0 workspace number 10
+
+## Moving windows to workspaces
+bindsym $mod+Shift+1 move container to workspace number 1
+bindsym $mod+Shift+2 move container to workspace number 2
+bindsym $mod+Shift+3 move container to workspace number 3
+bindsym $mod+Shift+4 move container to workspace number 4
+bindsym $mod+Shift+5 move container to workspace number 5
+bindsym $mod+Shift+6 move container to workspace number 6
+bindsym $mod+Shift+7 move container to workspace number 7
+bindsym $mod+Shift+8 move container to workspace number 8
+bindsym $mod+Shift+9 move container to workspace number 9
+bindsym $mod+Shift+0 move container to workspace number 10
+
+## Next / previous workspace
+bindsym $ctrl+$alt+Right workspace next
+bindsym $ctrl+$alt+Left  workspace prev
+
+## Split windows
+bindsym $mod+b splith
+bindsym $mod+v splitv
+
+## Modes switcher
+bindsym $mod+f fullscreen
+bindsym $mod+Shift+f floating toggle
+bindsym $mod+n focus mode_toggle
+
+## Scratchpad
+bindsym $mod+Shift+minus move scratchpad
+bindsym $mod+minus scratchpad show
+
+## XF86 keys
+bindsym XF86AudioRaiseVolume exec $HOME/.local/bin/notifications/volume up
+bindsym XF86AudioLowerVolume exec $HOME/.local/bin/notifications/volume down
+bindsym XF86AudioMute        exec $HOME/.local/bin/notifications/volume mute
+bindsym XF86AudioMicMute     exec $HOME/.local/bin/notifications/microphone toggle
+bindsym XF86AudioStop        exec $HOME/.local/bin/notifications/microphone toggle
+bindsym XF86AudioPrev        exec playerctl previous
+bindsym XF86AudioNext        exec playerctl next
+bindsym XF86AudioPlay        exec playerctl play-pause
+
+## Screnshots
+
+# Area
+bindsym $mod+Shift+s exec maim -u -o -s | xclip -selection clipboard -t image/png
+# Window
+bindsym $mod+Shift+a exec maim -i $(xdotool getactivewindow) | xclip -selection clipboard -t image/png
+# fullscreen
+bindsym $mod+Shift+z exec maim -u | xclip -selection clipboard -t image/png
+
+## Apps
+
+# open terminal emulator 
+bindsym $mod+Return exec $term
+# Open browser
+bindsym $ctrl+$alt+c exec google-chrome-stable
+# Open explorer
+bindsym $mod+e exec thunar
+# Open Spotify
+bindsym $ctrl+$alt+s exec spotify
+# Open Discord
+bindsym $ctrl+$alt+d exec discord
+
+# Open app launcher
+bindsym $mod+a exec $HOME/.config/rofi/launchers/launcher/launcher.sh
+# Open clipboard
+bindsym $mod+c exec $HOME/.config/rofi/launchers/clipboard/clipboard.sh
+# Clear clipboard 
+# bindsym $mod+Shift+c exec greenclip clear
+
+
+## Misc
+bindsym $alt+Tab focus parent
+bindsym $mod+Tab workspace back_and_forth
+bindsym $ctrl+$alt+q  exit
+bindsym $mod+Shift+r reload
+bindsym $ctrl+$alt+r  restartcontrol
+bindsym $mod+p exec $HOME/.config/rofi/launchers/powermenu/launch.sh
+bindsym $mod+Shift+c exec $HOME/.local/bin/scripts/colors/color_picker.sh
+bindsym $ctrl+$alt+l exec betterlockscreen -l
+
+### Window rules
+assign [class="Thunar"] 6 
+assign [class="(Google-chrome|google-chrome)"] 3
+assign [class="(Firefox|firefox)"] 3
+assign [class="(telegram-desktop|TelegramDesktop)"] 4
+assign [class="(Spotify|spotify)"] 2
+assign [class="obs"] 7
+assign [class="(kotatogram-desktop|KotatogramDesktop)"] 4
+
+### Bottom bar
+
+bar {
+        font pango:Source Code Pro Semibold 9
+        separator_symbol " ┃ "
+        workspace_buttons yes
+        workspace_min_width 30
+        strip_workspace_numbers yes
+        padding 3px 6px 0px 6px
+        status_command i3blocks
+        
+    colors {
+        background  #161622
+        separator   #ffffff
+        statusline  #ffffff
+        
+        # Default colors
+        focused_workspace  #3C93B8 #3C93B8 #ffffff
+        active_workspace   #333333 #5f676a #ffffff
+        inactive_workspace #333333 #222222 #888888
+        urgent_workspace   #2f343a #BA4334 #ffffff
+        binding_mode       #2f343a #BA4334 #ffffff
+    
+        # Catppuccin mocha
+        # inactive_workspace  #31283D #31283D #6c7086
+        # focused_workspace   #cba6f7 #cba6f7 #ffffff
+        # urgent_workspace    #f38ba8 #f38ba8 #f38ba8
+    }
+
+}

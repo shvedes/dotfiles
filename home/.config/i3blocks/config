@@ -1,10 +1,14 @@
+# [weather]
+# command=$HOME/.config/i3blocks/scripts/weather.sh
+# interval=3600
+
 [memory]
 command=free -h --giga | awk '/Mem:/ { printf("RAM %5s / %s \n", $3, $2) }'
 interval=1
 
 [disk]
 command=$HOME/.config/i3blocks/scripts/disk.sh
-interval=once
+interval=7400
 
 [cpu]
 command=$HOME/.config/i3blocks/scripts/cpu.sh
@@ -18,8 +22,16 @@ interval=60
 command=echo Wlan $(nmcli connection show | awk '{print $1}' | sed '1d')
 interval=5
 
+[layout]
+command=$HOME/.config/i3blocks/scripts/layout_xorg.sh
+interval=1
+
+# [layout-wayland]
+# command=swaymsg -t get_inputs | grep 'xkb_active_layout_name' | sed '1,7d' | awk '{print $2}' | sed 's/"//g' | sed 's/,//'
+# interval=1
+
 [date]
 command=date +"%A %e, %B %H:%M:%S"
 interval=1
-color=#ffffff
 
+# vim:ft=cfg
