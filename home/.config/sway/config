@@ -2,11 +2,16 @@
 
 ## Set section
 set $mod Mod4
+set $alt Alt
 
-## Monitors 
-output eDP-1 pos 1920 0 res 1920x1200 
-output HDMI-A-1 pos 0 0 res 1920x1080
-focus output HDMI-A-1
+## Output
+output eDP-1 res 1440x900 bg ~/.wallpapers/gruvbox.png stretch
+output HDMI-A-1 pos 1920 0 res 1920x1080 bg ~/.wallpapers/gruvbox.png stretch
+
+# Some settings
+xwayland enable
+focus_follows_mouse no
+floating_modifier $mod normal
 
 # Automaticly disable internal laptop screen when lid is closed
 bindswitch --reload --locked lid:on output eDP-1 disable
@@ -14,52 +19,40 @@ bindswitch --reload --locked lid:off output eDP-1 enable
 
 ## Autostart 
 exec {
-    easyeffects --gapplication-service &
-    dunst &
-    gammastep -P -O 5500
     lxpolkit &
     dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
 }
 
 exec_always {
-    # gsettings set org.gnome.desktop.interface gtk-theme "Nord"
-    # gsettings set org.gnome.desktop.interface gtk-theme "Gruvbox-Material-Dark"
-    gsettings set org.gnome.desktop.interface gtk-theme "Catppuccin-Mocha-Standard-Lavender-Dark"
-    gsettings set org.gnome.desktop.interface icon-theme "Tela"
+    easyeffects --gapplication-service &
+    # gammastep -P -O 5000 &
+    # gsettings set org.gnome.desktop.interface gtk-theme "Catppuccin-Mocha-Standard-Lavender-Dark"
+    # gsettings set org.gnome.desktop.interface gtk-theme "Arc-Dark"
+    gsettings set org.gnome.desktop.interface gtk-theme "Gruvbox-Dark-BL"
+    gsettings set org.gnome.desktop.interface cursor-theme "material_light_cursors"
 }
 
-
 ### Appearance
-font Source Code Pro Semibold 9
-titlebar_padding 3 1
 default_border pixel 2
-default_floating_border pixel 2
-output * bg #1E1E2E solid_color
+default_floating_border pixel 1
+title_align center
+smart_gaps off
+smart_borders off
 
 gaps inner 3
 gaps outer 3
+gaps bottom 4
+gaps top 4
 
-client.focused          #cba6f7 #cba6f7 #ffffff #cba6f7   #cba6f7
-client.focused_inactive #222222 #222222 #ffffff #222222   #222222
-client.unfocused        #4b4b4b #4b4b4b #ffffff #4b4b4b   #4b4b4b
-client.urgent           #f38ba8 #f38ba8 #ffffff #f38ba8   #f38ba8
-client.placeholder      #0c0c0c #0c0c0c #ffffff #000000   #0c0c0c
-
-### Lockscreen
-
-### Misc
-
-# Enable xwayland support
-xwayland enable
+#                       border    bg      fg    indicator child_border
+client.focused          #b57614 #b57614 #cdd6f4 #b57614   #b57614
+client.unfocused        #282828 #282828 #888888 #282828   #282828
+client.urgent           #cc241d #cc241d #222222 #cc241d   #cc241d
 
 
-
-### Input configuration
-
-## Keyboard
+## Input sevtion
 input "type:keyboard" {
     xkb_layout us,ru
-    # xkb_variant qwerty
     xkb_options grp:alt_shift_toggle
 }
 
@@ -71,28 +64,18 @@ input "10182:480:GXTP7863:00_27C6:01E0_Touchpad" {
         natural_scroll enabled
         pointer_accel 0.5
         scroll_method two_finger
+        scroll_factor 0.5
         tap enabled
 }
 
 ## USB mouse
 input "1133:49298:Logitech_G203_LIGHTSYNC_Gaming_Mouse" {
-    pointer_accel -0.4
+    pointer_accel -0.5
 }
 
 
-## Mouse actions
-focus_follows_mouse no
-
-## Floating modifier
-floating_modifier $mod normal
-
-
-
 ### Key bindings
-
 bindsym --to-code {
-
-##  Windows and workspaces
 
     # Focus windows
     $mod+j focus left
@@ -133,17 +116,13 @@ bindsym --to-code {
     $mod+Shift+9 move container to workspace number 9
     $mod+Shift+0 move container to workspace number 10
 
-    # Move focused window to next workspace
-    # Control+Alt+Right move container to workspace next
-    # Control+Alt+Left  move container to workspace prev
-
     # Next / prev workspace
     Control+Alt+Right workspace next
     Control+Alt+Left  workspace prev
 
     # Split new window 
-    $mod+b splith
-    $mod+v splitv
+    $mod+bracketright splith
+    $mod+bracketleft splitv
 
     # Layout 
     # $mod+s layout toggle stacking
@@ -159,36 +138,25 @@ bindsym --to-code {
     # Focus between tiled and floating
     $mod+n focus mode_toggle
 
-## Scratchpad
-    
     # Move window to scratchpad
     $mod+Shift+minus move scratchpad
     # Restore window from scratchpad
     $mod+minus scratchpad show
 
-
-## Other bindings
+    # Sticky mode
+    $mod+Shift+x sticky toggle
 
     # Volume management
-    XF86AudioRaiseVolume exec $HOME/.local/bin/notifications/volume up
-    XF86AudioLowerVolume exec $HOME/.local/bin/notifications/volume down
-    XF86AudioMute        exec $HOME/.local/bin/notifications/volume mute
-    XF86AudioMicMute     exec $HOME/.local/bin/notifications/microphone toggle
-    # Same as above, but for external keyboard
-    XF86AudioStop        exec $HOME/.local/bin/notifications/microphone toggle
-    # Media control
-    XF86AudioPrev        exec playerctl previous
-    XF86AudioNext        exec playerctl next
-    XF86AudioPlay        exec playerctl play-pause
-
+    XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
+    XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
+    XF86AudioMute        exec pactl set-sink-mute @DEFAULT_SINK@ toggle
+    XF86AudioMicMute     exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
+    XF86AudioStop        exec pactl set-source-mute @DEFAULT_SOURCE@ toggle 
+    XF86MonBrightnessUp   exec brightnessctl -q s +1%
+    XF86MonBrightnessDown exec brightnessctl -q s 1-%
 
     # Screenshots
-    
-    # Active window (don't work)
-    # $mod+Shift+a exec grim -g "$(swaymsg -t get_tree | jq -r '.. | select(.focused?) | .rect | "\(.x),\(.y) \(.width)x\(.height)"')" - | wl-copy
-    # Fullscreen 
     $mod+Shift+z exec grim - | wl-copy
-    # Area
     $mod+Shift+s exec grim -g "$(slurp -b 00000080 -c 00000080)" - | wl-copy
 
     # Applications
@@ -197,59 +165,51 @@ bindsym --to-code {
     Control+Alt+d exec discord
     $mod+e exec thunar
 
-## Misc
+    # Resizing
+    $mod+Shift+Left resize shrink width 20px
+    $mod+Shift+Down resize grow height 20px
+    $mod+Shift+Up resize shrink height 20px
+    $mod+Shift+Right resize grow width 20px
 
-    # Move focus to the parent container
+# Misc
     Alt+Tab focus parent
-
-    # Exit sway
-    Control+Alt+q exec killall sway
-    
-    # Resize mode toggle
-    # $mod+r mode "resize"
-
-    # Open terminal
-    $mod+return exec alacritty
-
-    # App launcher
+    Control+Alt+q exit
+    $mod+return exec $HOME/.local/bin/alacritty-client.sh
+    $mod+Shift+return exec 'WINIT_UNIX_BACKEND=x11 alacritty'
     $mod+a exec ~/.config/rofi/launchers/launcher/launcher.sh
-
-    # Close focused window
     $mod+q kill
-
-    # Reload the configuration file
     $mod+Shift+r reload
-
-    # Color picker
-    $mod+Shift+c exec ~/.local/bin/scripts/colors/color_picker_wayland.sh
-
-    # Lock session
-    Control+Shift+l exec $HOME/.config/swaylock/lock_session.sh
+    $mod+Shift+c exec ~/.local/bin/scripts/color_picker_wayland.sh
 }
 
 ### Window rules
 assign [app_id="google-chrome"] 3
-assign [app_id="firefox"] 3
-assign [app_id="(telegram|TelegramDesktop)"] 4
-assign [app_id="(Spotify|spotify)"] 2
-assign [app_id="(Discord|discord)"] 5
-assign [app_id="obs"] 7
+assign [app_id="(org.telegram.desktop)"] 4
+assign [app_id="(Spotify)"] 2
+assign [class="(discord)"] 5
+assign [app_id="com.obsproject.Studio"] 7
+
+for_window [app_id="thunar"] floating enable
+for_window [app_id="imv"] floating enable
+for_window [app_id="pavucontrol"] floating enable
 
 bar {
-
-    position bottom
-    font Source Code Pro Semibold 9
-    separator_symbol " ┃ "
-    gaps 0 5 0 6
-
-    # ~/.config/i3blocks
+    font pango:Source Code Pro Semibold 9
+    position top
+    separator_symbol ""
+    workspace_buttons yes
+    workspace_min_width 30
+    strip_workspace_numbers yes
+    gaps 0px 0px 0px 0px
     status_command i3blocks
-
     colors {
-        background  #161622
-        separator   #ffffff
-        statusline  #ffffff
-        inactive_workspace  #31283D #31283D #6c7086
-        focused_workspace   #cba6f7 #cba6f7 #ffffff
+        background  #282828
+        statusline  #fbf1c7
+        
+        #                  Border     BG      FG
+        focused_workspace  #665c54 #665c54 #fbf1c7
+        inactive_workspace #282828 #282828 #a89984
+        urgent_workspace   #cc241d #cc241d #1e1e2e
     }
 }
+
