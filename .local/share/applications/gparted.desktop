@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=GParted
+Comment=Create, reorganize, and delete partitions
+Exec=/home/username/.local/bin/applications/gparted.sh
+Icon=gparted
+Terminal=false
+Type=Application
+Categories=GNOME;System;Filesystem;
+Keywords=Partition;
+StartupNotify=true

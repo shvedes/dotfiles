@@ -1,0 +1,41 @@
+[global]
+layer								= top
+font								= "JetBrains Mono Nerd Font 8"
+follow								= none
+notification_limit					= 2
+
+# size, position and appearance
+# The window position was chosen for the gaps settings of the window manager and for a 1080p monitor
+frame_width							= 2
+width								= 400
+height								= 400
+origin								= top-right
+offset								= 17x17
+corner_radius						= 0
+
+# icons
+min_icon_size						= 24
+
+indicate_hidden						= false
+separator_height					= 2
+padding								= 8
+horizontal_padding					= 8
+text_icon_padding					= 16
+gap_size							= 6
+separator_color						= frame
+
+# behavior
+sort								= update
+format								= "<big><b><span foreground='#d79921'>%s</span></b></big>\n%b"
+show_indicators						= false
+mouse_left_click					= do_action
+title								= "Dunst"
+class								= "dunst"
+timeout								= 3
+
+highlight							= "#d79921"
+background							= "#28282866" # https://gist.github.com/lopspower/03fb1cc0ac9f32ef38f4
+foreground							= "#d5c4a1"
+frame_color							= "#85796f"
+
+# vim:ft=cfg

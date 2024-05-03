@@ -1,0 +1,5 @@
+[Desktop Entry]
+Type=Application
+Name=Tools
+Exec=/home/username/.config/rofi/scripts/tools.sh
+

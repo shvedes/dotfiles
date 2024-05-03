@@ -1,0 +1,94 @@
+
+{
+  "layer": "bottom",
+  "position": "top", 
+  "height": 28,
+  "reload_style_on_change": true,
+
+  "modules-left": [ "custom/spotify", "memory", "disk" ],
+  "modules-center": [ "hyprland/workspaces" ],
+  "modules-right": [ "network", "clock#time", "tray" ],
+
+  "custom/spotify": {
+    "exec": "$HOME/.config/waybar/scripts/spotify.py --player spotify",
+	"format": "<span size='10000' foreground='#98971a'> </span>{}",
+    "return-type": "json",
+    "on-click": "playerctl -p spotify play-pause",
+    "on-scroll-up": "playerctl -p spotify next",
+    "on-scroll-down": "playerctl -p spotify previous",
+	"on-click-right-release": "hyprctl dispatch workspace 6",
+	"tooltip": false,
+  },
+  
+  "memory": {
+    "interval": 1,
+    "format": "<span foreground='#d79921'>   </span>{used:0.1f}GiB"
+  },
+
+  "disk": {
+	"interval": 60,
+	"format": "<span foreground='#d79921'>   </span>{used}",
+	"tooltip": false,
+  },
+
+  "hyprland/workspaces": {
+      "format": "{icon}",
+      "on-click-release": "activate",
+      "sort-by-numbers": false,
+	  "on-scroll-up": "hyprctl dispatch workspace e+1",
+      "on-scroll-down": "hyprctl dispatch workspace e-1",
+      "format-icons": {
+		  "1": "I",
+		  "2": "II",
+		  "3": "III",
+		  "4": "IV",
+		  "5": "V",
+		  "6": "VI",
+		  "7": "VII",
+		  "8": "VIII",
+		  "9": "IX",
+		  "10": "X",
+      }
+  },
+
+  "hyprland/language": {
+    "format": "<span size='9000' foreground='#d79921'>  </span>{}",
+	"format-en": "ENG",
+	"format-ru": "RU",
+	"tooltip": false,
+	"on-click-release": "hyprctl switchxkblayout sonix-usb-device next"
+  },
+
+  "network": {
+	"interval": 1,
+	"format-wifi": "<span foreground='#d79921'>{icon}  </span>{essid}<span foreground='#d79921'>      </span>{bandwidthUpBytes}<span foreground='#d79921'>     </span>{bandwidthDownBytes} ",
+    "format-disconnected": "",
+	"format-ethernet": "<span foreground='#d79921'>  </span>Connected",
+	"on-click-right-release": "alacritty --class nmtui -T 'Network Settings' -e nmtui",
+	"on-click-release": "$HOME/.config/waybar/scripts/network.sh",
+	"format-icons": [
+		"󰤯 ",
+		"󰤟 ",
+		"󰤢 ",
+		"󰤥 ", 
+		"󰤨 "
+	]
+  },
+
+  "clock#time": {
+    "interval": 1,
+    "format": "<span foreground='#d79921' size='10000'> </span>{:%I:%M %p} ",
+    "tooltip": false,
+	"on-click-release": "bash $HOME/.config/waybar/scripts/date.sh"
+
+  },
+
+  "tray": {
+    "icon-size": 14,
+    "spacing": 10,
+	"show-passive-items": true
+  },
+
+}
+
+// vim:ft=jsonc

@@ -1,0 +1,93 @@
+configuration {
+	modi:                       "drun";
+	show-icons:                 false;
+	display-drun:               " ";
+	drun-display-format:        "{name}";
+	hover-select:				true;
+	me-select-entry:			"MousePrimary";
+	me-accept-entry:			"!MousePrimary";
+	font:						"JetBrains Mono Nerd Font 10";
+}
+
+* {
+
+    foreground:                  rgba( 242, 229, 188, 1);
+    foreground-alt:              #a89984;
+    background:                  rgba(40, 40, 40, 0.7);
+    selected-background:		 rgba(60, 56, 54, 0.7);
+    background-color:            transparent;
+}
+element {
+    padding: 1px ;
+    spacing: 5px ;
+    border:  0;
+}
+
+element normal.normal {
+    text-color:       var(foreground-alt);
+}
+
+element selected.normal {
+    background-color: var(selected-background);
+    text-color:       var(foreground);
+}
+
+element-text {
+    text-color:       var(foreground);
+}
+
+element-icon {
+    size:             24px;
+    text-color:       inherit;
+}
+
+window {
+    padding:          350;
+	fullscreen:		  true;
+    background-color: var(background);
+    padding:          380px 300px 400px 80px;
+}
+
+textbox {
+    text-color: var(foreground);
+}
+
+num-filtered-rows {
+    expand:     false;
+    text-color: var(foreground-alt);
+}
+
+num-rows {
+    expand:     false;
+    text-color: var(foreground-alt);
+}
+
+textbox-num-sep {
+    expand:     false;
+    str:        "/";
+    text-color: var(foreground-alt);
+}
+inputbar {
+    padding:    1px ;
+    spacing:    0px ;
+    text-color: var(foreground-alt);
+    children:   [ prompt,textbox-prompt-colon,entry,num-filtered-rows,textbox-num-sep,num-rows,case-indicator ];
+}
+
+entry {
+    text-color:        var(foreground-alt);
+    placeholder:       " Search";
+}
+
+prompt {
+    text-color: var(foreground-alt);
+}
+
+textbox-prompt-colon {
+    margin:     0px 5px 5px 5px ;
+    expand:     false;
+    str:        ":";
+    text-color: inherit;
+}
+
+// vim:ft=scss
