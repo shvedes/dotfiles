@@ -17,6 +17,7 @@
 - [**Overview**](#overview)
 - [**List of Applications**](#list-of-applications)
 - [**To Do**](#to-do)
+- [**Troubleshooting**](#troubleshooting)
 
 ### Overview
 
@@ -34,6 +35,7 @@
 | **Application Launcher**  | [Rofi](https://github.com/davatorium/rofi)            |
 | **Color Picker**          | [Hyprpicker](https://github.com/hyprwm/hyprpicker)    |
 | **Notification Daemon**   | [Dunst](https://github.com/dunst-project/dunst)       |
+| **Display Manager**       | [Ly](https://github.com/fairyglade/ly)                |
 
 ## To Do
 
@@ -44,7 +46,20 @@
 - [ ] ~~Make a spicetify theme much better than the current one~~ nvm
 - [x] Brightness control (DDC protocol)
     - [ ] Notifications about brightness events
-- [ ] Display manager?
+- [x] Display manager?
+
+## Troubleshooting
+
+### Display Manager
+
+By default, upon relogin, ly does not restart the dbus session, and this is a [problem](https://github.com/fairyglade/ly/issues/384#issuecomment-1213103624), but this can be solved by editing the file `/usr/share/wayland-sessions/hyprland.desktop`:
+```ini
+[Desktop Entry]
+Name=Hyprland
+Comment=An intelligent dynamic tiling Wayland compositor
+Exec=env XDG_CURRENT_DESKTOP=Hyprland dbus-run-session Hyprland
+Type=Application
+```
 
 ---
 
