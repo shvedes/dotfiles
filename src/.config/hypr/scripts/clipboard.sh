@@ -14,7 +14,11 @@ fi
 
 case "$1" in
 	show)
-		cliphist list | rofi -dmenu -display-columns 2 -theme "$ROFI_CFG" | cliphist decode | wl-copy
+		if [[ $(cliphist list | wc -l) == "0" ]]; then
+			notify-send -r 8 -i "${ICON}/bell.svg" "Clipboard Manager" "Clipboard is empty!"
+		else
+			cliphist list | rofi -dmenu -display-columns 2 -theme "$ROFI_CFG" -theme-str 'inputbar {enabled: false;}' | cliphist decode | wl-copy
+		fi
 		;;
 	clear)
 		cliphist wipe && notify-send -r 8 -i "${ICON}/clipboard.svg" "Clipboard manager" "Clipboard cleaned"
