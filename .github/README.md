@@ -11,7 +11,7 @@
 
 </div>
 
-![](./assets/preview.png)
+![](https://raw.githubusercontent.com/shvedes/dotfiles/main/.github/assets/preview.png)
 
 ## Table of contents
 - [**Overview**](#overview)
@@ -21,7 +21,7 @@
 
 ### Overview
 
-![](./assets/overview.png)
+![](https://raw.githubusercontent.com/shvedes/dotfiles/main/.github/assets/overview.png)
 
 ## List of Applications
 
