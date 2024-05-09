@@ -39,7 +39,7 @@
 
 ## To Do
 
-- [ ] Make the window manager, bar and wallpaper run using systemd
+- [ ] ~~Make the window manager, bar and wallpaper run using systemd~~ weird idea
 - [ ] Scripting
     - [ ] Write a script that displays information about the computer's hardware.
 - [ ] Create a logout screen using rofi
