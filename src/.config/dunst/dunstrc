@@ -10,7 +10,7 @@ frame_width							= 2
 width								= 400
 height								= 400
 origin								= top-right
-offset								= 17x17
+offset								= 25x25
 corner_radius						= 0
 
 # icons
@@ -34,7 +34,7 @@ class								= "dunst"
 timeout								= 3
 
 highlight							= "#d79921"
-background							= "#28282866" # https://gist.github.com/lopspower/03fb1cc0ac9f32ef38f4
+background							= "#282828" # https://gist.github.com/lopspower/03fb1cc0ac9f32ef38f4
 foreground							= "#d5c4a1"
 frame_color							= "#85796f"
 
