@@ -75,6 +75,12 @@
 	]
   },
 
+  "bluetooth": {
+	  "format": "<span foreground='#d79921' size='11500' rise='-1pt'>󰂯 </span>{device_alias}",
+	  "format-disabled": "",
+	  "tooltip": false
+  },
+
   "clock#time": {
     "interval": 1,
     "format": "<span foreground='#d79921' size='10000'> </span>{:%I:%M %p} ",
