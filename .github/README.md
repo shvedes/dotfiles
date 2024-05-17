@@ -41,7 +41,7 @@ Gruvin' does not use [**eww**](https://github.com/elkowar/eww) and similar utili
 
 Thinking about how to run Gparted natively under wayland? [Here's](https://github.com/shvedes/dotfiles/blob/main/src/.local/bin/applications/gparted.sh) the solution.
 
-Instead of writing the hyprctl activewindow command along with the sleep command, and trying to catch the moment to get the parameters of the active window, you can simply press a couple of keys on the keyboard and get the desired output literally in a second in a convenient small window. Info [here](https://github.com/shvedes/dotfiles/blob/decfd0c8717e1497553c1a5edeebb91d6364144b/src/.config/hypr/include/binds.conf#L154C22-L154C29)
+Instead of writing the `hyprctl activewindow` command along with the sleep command, and trying to catch the moment to get the parameters of the active window, you can simply press a couple of keys on the keyboard and get the desired output literally in a second in a convenient small window. Info [here](https://github.com/shvedes/dotfiles/blob/decfd0c8717e1497553c1a5edeebb91d6364144b/src/.config/hypr/include/binds.conf#L154C22-L154C29)
 
 ### List of Applications
 
