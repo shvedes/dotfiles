@@ -76,8 +76,8 @@
   },
 
   "bluetooth": {
-	  "format": "<span foreground='#d79921' size='11500' rise='-1pt'>󰂯 </span>{device_alias}",
-	  "format-disabled": "",
+	  "format-connected": "<span foreground='#d79921' size='11500' rise='-1pt'>󰂯 </span>{device_alias}",
+	  "format": "",
 	  "tooltip": false
   },
 
