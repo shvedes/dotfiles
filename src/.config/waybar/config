@@ -7,7 +7,21 @@
 
   "modules-left": [ "custom/spotify", "memory", "disk" ],
   "modules-center": [ "hyprland/workspaces" ],
-  "modules-right": [ "network", "clock#time", "tray" ],
+  "modules-right": [ "network", "clock#time", "group/traygroup" ],
+
+  "group/traygroup": {
+	  "orientation": "horizontal",
+	  "modules": [ "custom/tray-icon",  "tray" ],
+	  "drawer": {
+        "transition-duration": 500,
+        "transition-left-to-right": false,
+      },
+  },
+
+  "custom/tray-icon": {
+	"format": "<span size='10000'></span>",
+	"tooltip": false
+  },
 
   "custom/spotify": {
     "exec": "$HOME/.config/waybar/scripts/spotify.py --player spotify",
