@@ -116,7 +116,7 @@ Exec=env XDG_CURRENT_DESKTOP=Hyprland dbus-run-session Hyprland
 - [ ] Logout menu
 - [ ] Polish everything to perfection
 - [ ] Gamemode script, which will turn off animations, blurs, etc., when a particular game has been launched
-- [ ] Make fractional scaling more usable. Also check note below
+- [x] Make fractional scaling more usable. Also check note below
 - [ ] Install script
 
 > [!NOTE]
