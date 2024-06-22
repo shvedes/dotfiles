@@ -49,6 +49,7 @@ As stated above, Gruvin' does not use unnecessary applications to make your desk
 
 - **WM / Compositor** - hyprland
 - **Lockscreen** - hyprlock
+- **Logout menu** - wlogout
 - **Idle Control** - hypridle
 - **Bar** - waybar
 - **Wallpapers** - swww
@@ -75,7 +76,7 @@ File: $HOME/.local/share/applications/tools.desktop
 Here is a complete list of packages that are needed for this configuration to work correctly.
 
 ```bash 
-yay -S --noconfirm --needed hyprland hyprlock hypridle waybar swww dunst rofi-lbonn-wayland-only-git ttf-jetbrains-mono-nerd ttf-font-awesome noto-fonts noto-fonts-cjk imagemagick cliphist grim slurp jq zenity swayosd-git
+yay -S --noconfirm --needed hyprland hyprlock hypridle waybar swww dunst rofi-lbonn-wayland-only-git ttf-jetbrains-mono-nerd ttf-font-awesome noto-fonts noto-fonts-cjk imagemagick cliphist grim slurp jq zenity swayosd-git wlogout
 ```
 
 > [!NOTE]
@@ -113,7 +114,7 @@ Exec=env XDG_CURRENT_DESKTOP=Hyprland dbus-run-session Hyprland
 
 ## To Do
 
-- [ ] Logout menu
+- [x] Logout menu
 - [ ] Polish everything to perfection
 - [x] Gamemode script, which will turn off animations, blurs, etc., when a particular game has been launched
 - [x] Make fractional scaling more usable. Also check note below
