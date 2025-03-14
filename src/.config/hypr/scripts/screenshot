@@ -1,0 +1,59 @@
+#!/usr/bin/env bash
+
+source "$XDG_CONFIG_HOME/hypr/scripts/libhypr"
+source "$XDG_CONFIG_HOME/user-dirs.dirs"
+
+# Verify required screenshot tools are installed
+is_installed grim slurp
+
+# If slurp is already running, exit the script
+# This helps in cases where you accidentally trigger the script twice, creating two overlapping slurp layers for selecting the screen area.
+if pidof slurp > /dev/null; then
+	exit 1
+fi
+
+# Generate timestamped filename
+image="${XDG_PICTURES_DIR}/Screenshots/$(date +"screenshot-%Y-%m-%d-%H-%M-%S").png"
+[[ ! -d "${XDG_PICTURES_DIR}/Screenshots" ]] && mkdir -p "${XDG_PICTURES_DIR}/Screenshots"
+
+# Notification helper function
+send_notification() {
+    notify-send -r 1 -i "$ICONS_DIR/screenshot.svg" "Hyprland" "Screenshot copied to clipboard"
+}
+
+# Handle different screenshot modes
+case "$1" in 
+    area)
+		# Don't take screenshots during games
+		# This applies only in this mode because only the selective area mode restricts your control in-game, which can be very frustrating
+		is_in_game && exit 1
+
+        # Select region
+        slurp -d -w 1 -b 00000040 -c 7c6f64 | grim -g - "$image"
+
+		# Exit if no selection provided (e.g. ESC key was pressed)
+        [[ ! -f "$image" ]] && exit 1
+
+        # Copy to clipboard and notify
+        wl-copy --type image/png < "$image" && send_notification 
+        ;;
+
+    window)
+        # Capture active window:
+        # Get window geometry via hyprctl and jq
+        window="$(hyprctl activewindow -j |  jq -r '"\(.at[0]),\(.at[1]) \(.size[0])x\(.size[1])"')"
+
+        # Capture and flash window border
+		# This effect looks best when animations are enabled
+		# You can change the window border color in $XDG_CONFIG_HOME/hypr/scripts/libhypr
+        grim -g "$window" "$image" && flash_border
+
+        # Copy and notify
+        wl-copy --type image/png < "$image" && send_notification
+        ;;
+
+    screen)
+        # Full screen capture:
+        # Capture, copy, notify, and flash screen
+        grim "$image" && wl-copy --type image/png < "$image" && send_notification && flash_screen
+esac

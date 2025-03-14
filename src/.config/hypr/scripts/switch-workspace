@@ -1,0 +1,38 @@
+#!/usr/bin/env bash
+
+# This script is experimental and not yet in use.  
+# Its idea is to display an OSD message with the current virtual workspace using swayosd.
+# Essentially, it doesn't provide any real functionality, considering that Waybar makes workspace display much simpler, more informative, and visually appealing.
+
+source "$XDG_CONFIG_HOME/hypr/scripts/libhypr"
+
+is_installed swayosd-git:swayosd-client
+
+current="$(hyprctl -j activeworkspace | jq '.id')"
+target=$1
+
+if [[ "$target" == "$current" ]]; then
+	exit 0
+fi
+
+case "$target" in
+	[0-9])
+		hyprctl -q dispatch "workspace $target"
+		swayosd-client --custom-message "Workspace $target"  --custom-icon computer
+		;;
+	next)
+		hyprctl -q dispatch "workspace m+1"
+		active="$(hyprctl -j activeworkspace | jq '.id')"
+		swayosd-client --custom-message "Workspace $active"  --custom-icon computer
+		;;
+	prev)
+		hyprctl -q dispatch "workspace m-1"
+		active="$(hyprctl -j activeworkspace | jq '.id')"
+		swayosd-client --custom-message "Workspace $active"  --custom-icon computer
+		;;
+	last)
+		hyprctl -q dispatch "workspace previous"
+		active="$(hyprctl -j activeworkspace | jq '.id')"
+		swayosd-client --custom-message "Workspace $active"  --custom-icon computer
+esac
+

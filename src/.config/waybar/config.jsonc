@@ -1,0 +1,268 @@
+[
+	{
+		"position": "top",
+		"height": 32,
+		"layer": "bottom",
+		"reload_style_on_change": true,
+ 
+		"modules-left": [ "hyprland/workspaces", "group/players", "privacy", "custom/gamescope" ],
+		"modules-center": [  ],
+		"modules-right": [ "group/traygroup", "custom/pacman", "custom/weather", "group/monitoring", "bluetooth", "pulseaudio#volume", "pulseaudio#microphone", "custom/phone-status", "group/network",  "group/clock" ],
+
+		"pulseaudio#microphone": {
+			"format-source-muted": "<span size='11500'>\udb80\udf6d</span>  {volume}%",
+			"format-source": "<span size='11500'>\udb80\udf6c</span>  {volume}%",
+			"on-click": "swayosd-client --input-volume  mute-toggle",
+			"on-scroll-up": "swayosd-client --input-volume +1",
+			"on-scroll-down": "swayosd-client --input-volume -1",
+			"on-click-right": "pwvucontrol",
+			"format": "{format_source}",
+			"scroll-step": 1,
+			"tooltip": false
+		},
+
+		"pulseaudio#volume": {
+			"on-click": "swayosd-client --output-volume mute-toggle",
+			"on-scroll-up": "swayosd-client --output-volume +1",
+			"on-scroll-down": "swayosd-client --output-volume -1",
+			"on-click-right": "pwvucontrol",
+			"format": "<span size='11000'>\uf028</span>  {volume}%",
+			"format-muted": "<span size='11000'>\ueee8</span>  {volume}%",
+			"scroll-step": 1,
+			"tooltip": false
+		},
+
+		"custom/phone-status": {
+			"on-click": "$XDG_CONFIG_HOME/waybar/scripts/open-mtp YOUR_LOCAL_IP_ADDRESS_HERE 2121",
+			"exec": "$XDG_CONFIG_HOME/waybar/scripts/phone-status",
+			"format": "<span size='11000'>\udb82\udd89</span>  {}",
+			"tooltip-format": "Phone is connected\nPreventing system sleep",
+			"hide-empty-text": true,
+			"return-type": "json"
+		},
+
+		"hyprland/window": {
+			"format": "{initialTitle}"
+		},
+
+		"group/clock": {
+			"orientation": "horizontal",
+			"modules": [ "clock", "clock#date" ],
+			"drawer": {
+				"transition-left-to-right": false,
+				"transition-duration": 500
+			}
+		},
+
+		"custom/gamescope": {
+			"on-click": "hyprctl dispatch workspace $(hyprctl clients -j | jq '.[] | select(.class == \"gamescope\").workspace.id')",
+			"exec": "$XDG_CONFIG_HOME/waybar/scripts/gamescope",
+			"format": "{}",
+			"hide-empty-text": true,
+			"return-type": "json"
+		},
+
+		"group/monitoring": {
+			"orientation": "horizontal",
+			"modules": [ "cpu", "custom/uptime", "temperature#cpu", "temperature#gpu", "memory" ],
+			"drawer": {
+				"transition-left-to-right": false,
+				"transition-duration": 500
+			}
+		},
+
+		"custom/uptime": {
+			"format": "<span size='11000'>\uf062</span>  Up {}",
+			"exec": "awk '{d=int($1/86400); h=int(($1%86400)/3600); m=int(($1%3600)/60); if (d >= 7) { print int(d/7) \"w \" d%7 \"d \" h \"h \" m \"m\"; } else if (d > 0) { print d \"d \" h \"h \" m \"m\"; } else { print h \"h \" m \"m\"; }}' /proc/uptime",
+			"interval": 30,
+			"tooltip": false
+		},
+
+		"group/players": {
+			"orientation": "horizontal",
+			"modules": [ "custom/players-icon", "custom/lowfi", "mpris#mpd",  "mpris#spotify" ],
+			"drawer": {
+				"transition-left-to-right": true,
+				"transition-duration": 500
+			}
+		},
+
+		"custom/players-icon": {
+			"format": "<span size='13000'>\udb80\udc4e</span>",
+			"tooltip": false,
+			"rotate": 180
+		},
+
+		// `mpd-mpris` package required
+		"mpris#mpd": {
+			"tooltip": false,
+			"format": "<span rise='2pt'>{player_icon}  {title} - {artist}</span>",
+			"format-stopped": "",
+			"on-click": "playerctl-control --waybar mpd", // $HOME/Scripts should be in the $PATH
+			"on-click-right": "playerctl -p mpd next",
+			"on-scroll-down": "playerctl -p mpd volume 0.01-",
+			"on-scroll-up": "playerctl -p mpd volume 0.01+",
+			"player": "mpd",
+			"player-icons": { "default": "<span size='11000'>\uf001</span>" }
+		},
+
+		"mpris#spotify": {
+			"tooltip": false,
+			"format": "<span rise='2pt'>{player_icon} {title} - {artist}</span>",
+			"on-click": "playerctl-control --waybar spotify", // $HOME/Scripts should be in the $PATH
+			"on-click-right": "playerctl-control next",
+			"on-scroll-down": "playerctl -p spotify volume 0.01-",
+			"on-scroll-up": "playerctl -p spotify volume 0.01+",
+			"player": "spotify",
+			"player-icons": { "default": "<span foreground='#b8bb26' size='12000'>\uf1bc</span> " }
+		},
+
+		// This module could be implemented using mpris, but globbing cannot be used for the mpris module.
+		// In this case it is needed because each new lowfi process creates a unique mpris player id
+		// https://github.com/talwat/lowfi/issues/70
+		"custom/lowfi": {
+			"tooltip": false,
+			"exec": "sleep 1; playerctl -p $(playerctl -l | grep lowfi) status --follow",
+			"format": "<span size='11000'>\uf001</span>  LoFi {}",
+			"on-click": "playerctl-control --waybar lowfi", // $HOME/Scripts should be in the $PATH
+			"on-click-right": "playerctl-control next",
+			"on-scroll-up": "playerctl -p $(playerctl -l | grep lowfi) volume 0.1+",
+			"on-scroll-down": "playerctl -p $(playerctl -l | grep lowfi) volume 0.1-"
+		},
+
+		"group/traygroup": {
+			"orientation": "horizontal",
+			"modules": [ "custom/tray-icon",  "tray" ],
+			"drawer": {
+				"transition-duration": 500,
+				"transition-left-to-right": false
+			}
+		},
+
+		"custom/tray-icon": {
+			"format": "<span size='13000'>\udb80\udc4e</span>",
+			"tooltip": false
+		},
+
+		"hyprland/workspaces": {
+			"format": "<span size='10000'>{icon}</span>",
+			"persistent-workspaces": { "*": 10 },
+			"format-icons": { "active": "\uf111", "default": "\uf111", "empty": "\uf10c" }
+		},
+
+		"group/network": {
+			"orientation": "horizontal",
+			"modules": [ "network",  "network#download", "network#upload" ],
+			"drawer": {
+				"transition-duration": 500,
+				"transition-left-to-right": false
+			}
+		},
+
+		// To implement the same module separator as “group/monitoring”, we need to split this into two modules
+		"network#download": {
+			"format-wifi": "<span size='11000'>\udb80\uddda</span>  {bandwidthDownBytes}",
+			"format-ethernet": "<span size='11000'>\udb80\uddda</span>  {bandwidthDownBytes}",
+			"format-disconnected": "",
+			"tooltip": false,
+			"interval": 1
+		},
+
+		"network#upload": {
+			"format-wifi": "<span size='11000'>\udb81\udd52</span>  {bandwidthUpBytes}",
+			"format-ethernet": "<span size='11000'>\udb81\udd52</span>  {bandwidthUpBytes}",
+			"format-disconnected": "",
+			"tooltip": false,
+			"interval": 1
+		},
+
+		"network": {
+			"format-wifi": "<span size='11000'>{icon}</span>  WiFi",
+			"format-ethernet": "<span size='11000'>\udb80\ude00</span>  Ethernet",
+			"format-disconnected": "<span size='11000'>\udb82\udd2e</span>  Offline",
+			"format-icons": [ "\udb82\udd1f", "\udb82\udd22", "\udb82\udd25", "\udb82\udd28" ],
+			"on-click": "uwsm app -- kitty --hold nmtui",
+			"tooltip-format-ethernet": "Using ethernet connection",
+			"tooltip-format": "Connected to {essid}"
+		},
+
+		"bluetooth": {
+			"format": "",
+			"format-connected": "<span size='12000' rise='-1.5pt'>\udb80\udcaf</span>   {device_alias}",
+			"format-connected-battery": "<span size='12000'>\udb80\udcaf</span>  {device_alias}  <span size='10500'>󰁹</span>  {device_battery_percentage}%"
+		},
+
+		"clock": {
+			"format": "<span size='11500'>\udb85\udc4e</span>  {:%I:%M %p}",
+			"tooltip": false
+		},
+
+		"clock#date": {
+			"format": "<span size='12000'>\udb83\ude18</span>   {:%A - %B %d, %Y}",
+			"tooltip": false
+		},
+
+		"tray": {
+			"icon-size": 14,
+			"spacing": 10,
+			"show-passive-items": true
+		},
+
+		"privacy": {
+			"icon-spacing": 12,
+			"icon-size": 12,
+			"modules": [
+				{
+					"type": "screenshare"
+				},
+				{
+					"type": "audio-in"
+				},
+			]
+		},
+
+		"custom/pacman": {
+			"interval": 1800,
+			"exec": "ping -c 1 8.8.8.8 &> /dev/null && echo $(( $(checkupdates 2>/dev/null | wc -l) + $(yay -Qu 2>/dev/null | wc -l) ))",
+			"format": "<span size='11000'>\uf4f8</span>  {}",
+			"tooltip": false
+		},
+
+		"custom/weather": {
+			"format": "{}",
+			"interval": 1800,
+			"exec": "$XDG_CONFIG_HOME/waybar/scripts/weather.py",
+			"return-type": "json"
+		},
+
+		"cpu": {
+			"interval": 1,
+			"format": "<span size='11000'>\uf4bc</span>  {usage}%",
+			"tooltip": false
+		},
+
+		"memory": {
+			"interval": 1,
+			"format": "RAM:  <span size='11000'>\uf1c0</span>  {used:0.1f}GiB",
+			"tooltip-format": "RAM: {used:0.1f}GiB\nZRAM: {swapUsed:0.1f}GiB"
+		},
+
+		"temperature#gpu": {
+			// Please enter your hwmon path for the desired device here.
+			"hwmon-path": "",
+			"format": "GPU:  <span size='11000'>\uf2cb</span>  {temperatureC}°C",
+			"interval": 1,
+			"tooltip": false
+		},
+
+		"temperature#cpu": {
+			// Please enter your hwmon path for the desired device here.
+			"hwmon-path": "",
+			"format": "CPU:  <span size='11000'>\uf2cb</span>  {temperatureC}°C",
+			"interval": 1,
+			"tooltip": false
+		}
+	}
+]
+
+// vim:ft=jsonc

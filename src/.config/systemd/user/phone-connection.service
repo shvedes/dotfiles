@@ -1,0 +1,10 @@
+[Unit]
+Description=System Sleep Inhibitor Based On Phone Availability
+After=network.target
+
+[Service]
+ExecStart=%h/.scripts/phone-inhibitor YOUR_LOCAL_IP_ADDRESS_HERE
+Restart=on-failure
+
+[Install]
+WantedBy=default.target

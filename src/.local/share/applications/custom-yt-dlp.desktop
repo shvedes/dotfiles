@@ -1,0 +1,5 @@
+[Desktop Entry]
+Type=Application
+Name=YouTube Downloader
+Exec=/home/username/.scripts/download-media
+Icon=/home/username/.config/hypr/icons/youtube.svg

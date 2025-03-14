@@ -1,0 +1,3 @@
+[server]
+style = "/home/username/.config/swayosd/style.css"
+top_margin = 0.75

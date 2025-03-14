@@ -1,0 +1,85 @@
+#!/usr/bin/env bash
+
+source /usr/local/lib/lib-bash
+# Load external functions and variables from the lib-bash library located in /usr/local/lib.
+
+export ICONS_DIR="$XDG_CONFIG_HOME/hypr/icons"
+# Define ICONS_DIR as the directory where icon files are stored in the Hyprland configuration.
+
+export EXTRAS_DIR="$XDG_CONFIG_HOME/hypr/extras"
+# Define EXTRAS_DIR as the directory for extra files in the Hyprland configuration.
+
+ACTIVE_MONITOR="$(hyprctl -j monitors | jq -r '.[] | select(.focused == true) | .name')"
+
+flash_screen() {
+    # Function: flash_screen
+    # Purpose: Temporarily apply a screen shader effect, then remove it.
+
+    hyprctl keyword decoration:screen_shader "$EXTRAS_DIR/shader.frag" && sleep 0.15
+    # Set the screen shader to the shader file from EXTRAS_DIR and wait 0.15 seconds.
+
+    hyprctl keyword decoration:screen_shader ""
+    # Remove the screen shader effect by resetting it to an empty value.
+}
+
+flash_border() {
+    # Function: flash_border
+    # Purpose: Temporarily change the active window border color and then reload the configuration.
+
+    hyprctl "keyword general:col.active_border rgb(D4C4A2)" && sleep 0.15
+    # Set the active border color to the RGB color D4C4A2 and wait 0.15 seconds.
+
+    hyprctl reload
+    # Reload the Hyprland configuration to apply the border color change.
+}
+
+is_in_game() {
+    # Function: is_in_game
+    # Purpose: Check if the active window belongs to a game.
+
+    local window_class; window_class="$(hyprctl -j activewindow | jq '.class' | sed 's/"//g')"
+    # Retrieve the active window's class using hyprctl in JSON format, extract the 'class' field with jq,
+    # and remove surrounding quotes with sed.
+
+    if [[ "$window_class" == gamescope ]]; then
+        # If the window class equals 'gamescope' (typically used for game windows),
+        return 0
+        # Return 0 (true) indicating that the active window is a game.
+    else
+        return 1
+        # Return 1 (false) indicating that the active window is not a game.
+    fi
+}
+
+is_installed() {
+    # Function: is_installed
+    # Purpose: Check if the required package(s) and their corresponding binary(ies) are installed.
+
+    for entry in "$@"; do
+        # Loop through each argument passed to the function.
+        
+        package="${entry%%:*}"
+        # Extract the package name by taking the part before the first colon.
+
+        binaries="${entry#*:}"
+        # Extract the binary names by taking the part after the first colon.
+
+        if [[ "$binaries" == "$package" ]]; then
+            # If no colon was found (i.e., binaries equals package),
+            binaries="$package"
+            # Set binaries to the package name.
+        fi
+
+        for binary in ${binaries//,/ }; do
+            # Split the binaries string by commas and loop through each binary.
+            
+            if ! command -v "$binary" &>/dev/null; then
+                # If the binary is not found in the system PATH,
+                notify-send -i "$ICONS_DIR/alert.svg" "Hyprland" "$package is not installed!"
+                # Send a desktop notification using the alert icon that the package is not installed.
+                exit 1
+                # Exit the script with an error status.
+            fi
+        done
+    done
+}

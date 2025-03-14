@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=Shutdown
+Exec=sh -c 'killall -s KILL spotify; systemctl poweroff'
+Icon=system-shutdown
+Keywords=poweroff;power;systemd

@@ -1,0 +1,75 @@
+{
+    "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json",
+    "logo": {
+	    "source": "$XDG_CONFIG_HOME/fastfetch/images/logo.png",
+	    "type": "kitty-direct",
+	    "height": 15,
+		"width": 60,
+	    "padding": {
+		    "top": 1
+	    }
+    },
+    "display": {
+        "separator": " "
+    },
+    "modules": [
+		"break",
+        {
+            "type": "title",
+            "keyWidth": 10
+        },
+        {
+            "type": "custom",
+            "format": "~~~~~~~~~~~~~~~~~~~~~~~~~~",
+        },
+        {
+            "type": "os",
+            "key": "~ ",
+            "keyColor": "34",
+        },
+        {
+            "type": "cpu",
+            "key": "~ ",
+            "keyColor": "34", 
+        },
+        {
+            "type": "gpu",
+            "key": "~ ",
+            "keyColor": "34", 
+        },
+		{
+			"type": "board",
+			"key": "~ ",
+			"keyColor": "34"
+		},
+		{
+			"type": "memory",
+            "key": "~ ",
+            "keyColor": "34", 
+		},
+		"break",
+		{
+			"type": "disk",
+            "key": "~ ",
+            "keyColor": "34", 
+		},
+		"break",
+        {
+            "type": "wm",
+            "key": "~ ",
+            "keyColor": "34", 
+        },
+        {
+            "type": "uptime",
+            "key": "~ ",
+            "keyColor": "34", 
+        },
+        {
+            "type": "packages",
+            "format": "{} pkgs",
+            "key": "~ ",
+            "keyColor": "34",  
+        },
+        "break",
+    ]
+}

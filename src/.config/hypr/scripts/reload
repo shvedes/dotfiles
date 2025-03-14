@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+# Load shared bash functions
+source "$XDG_CONFIG_HOME/hypr/scripts/libhypr"
+
+# List of services to restart
+targets=("waybar" "hyprpaper" "hyprsunset" "swayosd" "phone-connection" "cliphist")
+
+# Restart each service with force option
+# If you restart services many times in a short period of time, systemd will refuse to restart them for a while due to a startup "error".
+# This can be worked around by adding certain parameters to each service. I would like to find an easier and more universal way to do this.
+for service in "${targets[@]}"; do
+    systemctl --user restart --force "$service"
+done
+
+# Send notification
+notify-send -r 1 -i "$ICONS_DIR/hyprland.svg" "Hyprland" "Environment reloaded"

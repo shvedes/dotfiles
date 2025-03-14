@@ -1,0 +1,140 @@
+
+/* Waybar itself */
+
+* {
+	font-family: "Symbols Nerd Font Mono";
+	font-weight: bold;
+	font-size: 12px;
+}
+
+@define-color background         #242424;
+@define-color foreground         #d5c4a1;
+
+@define-color workspace-current  #bdae93;
+@define-color workspace-empty    #504945;
+@define-color workspace-visible  #665C54;
+
+@define-color border             #505050; /* #454545 */
+@define-color tooltip-border     #707070;
+@define-color module-background  #323232;
+@define-color urgent             #fb4934;
+
+window#waybar {
+	background: @background;
+	color: @foreground
+}
+
+tooltip {
+	background: @module-background;
+	border: 1px solid @tooltip-border;
+	border-radius: 6px
+}
+
+/* Workspaces */
+
+#workspaces {
+	margin-left: 8px
+}
+
+#workspaces button {
+	margin: -0.7em;
+	color: @workspace-visible
+}
+
+#workspaces button.empty {
+	color: @workspace-empty
+}
+
+#workspaces button.visible {
+	color: @workspace-current
+}
+
+@keyframes urgent-workspace {
+	0% { color: @urgent }
+}
+
+#workspaces button.urgent {
+	animation: urgent-workspace 1s infinite
+}
+
+/* Active window */
+
+#window {
+	border: none;
+	background: transparent
+}
+
+/* Make window module transparent when no windows present */
+window#waybar.empty #window {
+    background-color: transparent
+}
+
+/* Regular modules */
+
+.module, #privacy {
+	background: @module-background;
+	border: 1px solid @border;
+	border-radius: 14px;
+	padding: 0px 6px; /* top/bottom | right/left */
+	margin: 4px
+}
+
+/* Monitoring group */
+
+#memory, #temperature.gpu {
+	border-left: none;
+	border-radius: 0px 14px 14px 0px;
+	margin: 4px 0px
+}
+#temperature.gpu, #temperature.cpu #network.download {
+	border-right: 1px solid @border;
+	border-radius: 0px
+}
+#temperature.cpu {
+	border-radius: 14px 0px 0px 14px;
+	margin: 4px 0px 4px 4px
+}
+#memory {
+	margin: 4px 4px 4px 0px
+}
+
+/* Fix vary spacing for tray & players icon */
+
+#custom-tray-icon {
+	padding: 0px 6px 0px 6px
+}
+#custom-players-icon {
+	padding: 0px 6px 0px 6px
+}
+
+/* Custom style for privacy module */
+
+/* Flashing animation for privacy module */
+/* When the module is active, its frame will flicker to indicate 
+   that a microphone is being used or a screen capture is in progress */
+@keyframes border-animation {
+  50% { border-color: @urgent }
+}
+
+#privacy {
+	border: 1px solid @border;
+	animation: border-animation 1.5s infinite
+}
+
+
+/* Visually combine these modules */
+#pulseaudio.volume, #network.download {
+	border-right: none;
+	border-radius: 14px 0px 0px 14px;
+	margin-right: 0px
+}
+#pulseaudio.microphone, #network.upload {
+	border-radius: 0px 14px 14px 0px;
+	border-left: 1px solid @border;
+	margin-left: 0px
+}
+
+/* Add an extra padding to the module due to nerd font */
+#custom-phone-status {
+	padding-left: 8px
+}

@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+
+# shellcheck disable=all
+
+# Load shared utilities
+source "$XDG_CONFIG_HOME/hypr/scripts/libhypr"
+
+# Verify JSON processor exists
+is_installed jq
+
+# Get window information in JSON format
+window_info=$(hyprctl -j activewindow)
+
+# Parse JSON data using jq:
+# -r flag = raw output (no quotes)
+class=$(jq -r '.class' <<< "$window_info")  # Application class/name
+size=$(jq -r '.size | "\(.[0])x\(.[1])"' <<< "$window_info")  # Dimensions
+title=$(jq -r '.title' <<< "$window_info")  # Window title text
+xwayland=$(jq -r '.xwayland' <<< "$window_info")  # Is it Xwayland
+
+# Convert boolean to human-readable format
+xwayland_display="XWayland: $( [[ "$xwayland" == "true" ]] && echo "Yes" || echo "No" )"
+
+# Skip gamescope windows
+# You can comment out this if you want to
+[[ "$class" == "gamescope" ]] && exit 0
+
+# Format multi-line notification message
+summary="Title: $title
+Class: $class
+Size: $size
+$xwayland_display"
+
+# Visual feedback and notification display:
+# - flash_border: Temporary highlight of window border
+# - -t 10000: Notification timeout (10 seconds)
+# - -r 1: Replace previous notification ID 1
+# We don't use an icon because it would take up too much space, making the notification hard to read.
+flash_border && notify-send -r 1 -t 10000 "Hyprland" "$summary"

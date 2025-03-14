@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+
+# shellcheck disable=all
+source "$XDG_CONFIG_HOME/hypr/scripts/libhypr"
+
+# Check if hyprpaper is installed
+is_installed hyprpaper
+
+# Immediate wallpaper update
+# 1. Preload the new image into memory
+# 2. Set it as wallpaper for specific display
+hyprctl -q hyprpaper preload "$1"
+hyprctl -q hyprpaper wallpaper "${ACTIVE_MONITOR}, $1" # $ACTIVE_MONITOR is defined in $XDG_CONFIG_HOME/hypr/scripts/libhypr
+
+# Send notification
+notify-send -r 1 -a "Hyprland" -i "$ICONS_DIR/hyprland.svg" "Hyprland" "Wallpaper changed"
+
+# Update config file for future sessions
+echo "preload = $1" > "$XDG_CONFIG_HOME/hypr/hyprpaper.conf"
+echo "wallpaper = ${ACTIVE_MONITOR}, $1" >> "$XDG_CONFIG_HOME/hypr/hyprpaper.conf"
+
+# Update lock screen background (hyprlock):
+# Special character escaping for file paths
+ESCAPED_PATH=$(printf '%s\n' "$1" | sed 's/[&/\]/\\&/g')
+
+# Modify lock screen configuration using sed stream editor
+sed -i "s|^\([[:space:]]*path = \).*|\1$ESCAPED_PATH|" "$XDG_CONFIG_HOME/hypr/hyprlock.conf"

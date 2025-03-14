@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+
+# Get first connected keyboard's identifier
+# Note: Uses first keyboard in list rather than checking 'main' status
+keyboard_device=$(hyprctl -j devices | jq -r '.keyboards[] | select(.main == true).name')
+
+# Cycle to next keyboard layout
+hyprctl -q switchxkblayout "$keyboard_device" next
+
+# Get current layout information
+layout_name=$(hyprctl -j devices | jq -r '.keyboards[] | select(.main == true).active_keymap')
+
+# Extract first 2 letters as lowercase layout code
+# Example: "English (US)" -> "en", "Ukrainian" -> "ua"
+layout_code=$(echo "$layout_name" | head -c 2 | tr '[:upper:]' '[:lower:]')
+
+# Create human-readable name mapping
+declare -A layout_names=(
+    ["en"]="English"      # Most common layouts
+    ["es"]="Spanish"      # mapped to full names
+    ["ru"]="Russian"
+    ["fr"]="French"
+    ["de"]="German"
+    ["ua"]="Ukrainian"    # Special case: UA instead of UK
+	# You can add more
+)
+
+# Use mapped name if available, fallback to raw layout name
+full_name="${layout_names[$layout_code]:-$layout_name}"
+
+# Show visual feedback with translated name
+swayosd-client --custom-message "$full_name" --custom-icon keyboard

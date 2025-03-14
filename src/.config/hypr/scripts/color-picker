@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+source "$XDG_CONFIG_HOME/hypr/scripts/libhypr"
+# Load helper functions and variables from the libhypr script in the Hyprland configuration
+
+is_installed hyprpicker
+# Check if the 'hyprpicker' tool is installed. The script will likely exit if it's not available
+
+color="$(hyprpicker -a -l -r)"
+
+[ -z "$color" ] && exit 1 || notify-send -r 1 -i "$ICONS_DIR/eyedropper.svg" "Hyprland" "$color copied to clipboard"
+# Check if the 'color' variable is empty:
+#   - If empty, exit the script with status 1 (indicating failure or no selection)
+#   - Otherwise, send a notification using 'notify-send':
+#       - '-r 1': replaces the previous notification (if any)
+#       - '-i "$ICONS_DIR/eyedropper.svg"': sets the icon to an eyedropper image
+#       - "Hyprland": notification title
+#       - "$color copied to clipboard": notification message indicating the color value was copied

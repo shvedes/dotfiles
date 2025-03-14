@@ -1,0 +1,40 @@
+#!/usr/bin/env bash
+
+# Load Hyprland helper functions and variables from the libhypr script
+source "$XDG_CONFIG_HOME/hypr/scripts/libhypr"
+
+# Check if the rofi is installed.
+is_installed rofi-wayland:rofi # package_name:binary
+
+is_in_game && exit 1
+# If the user is in a game (as determined by the is_in_game function),
+# exit the script to avoid interference.
+
+current_layout="$(hyprctl devices -j | jq -r '.keyboards[] | select(.main == true) | .active_keymap')"
+# Get JSON data about devices using hyprctl.
+# Extract the active keymap of the main keyboard with jq.
+# Store the resulting layout string in the variable current_layout.
+
+case "$current_layout" in
+    "English (US)" | "Spanish")
+		# For layouts English or Spanish (latin letters)
+        rofi -show drun -theme "$XDG_CONFIG_HOME/rofi/config.rasi" -run-command "uwsm app -- {cmd}"
+        ;;
+
+    # Or any other non-latin layout
+	# Customize it to fit your needs
+	# Ideally, the script itself should recognize the layout ID. I will do it in the future
+	# You can get the id of the layouts with this command: 
+	# hyprctl devices -j | jq -r '.keyboards[] | select(.main == true) | .layout'
+	# Layout id sequential
+    "Russian") 
+		# Get first connected keyboard's identifier
+		keyboard_device=$(hyprctl -j devices | jq -r '.keyboards[] | select(.main == true).name')
+
+        # For the Russian layout:
+        hyprctl -q switchxkblayout "$keyboard_device" 0
+        # Temporarily switch the keyboard layout of the device '$keyboard_device' to layout index 0.
+        rofi -show drun -theme "$XDG_CONFIG_HOME/rofi/config.rasi" -run-command "uwsm app -- {cmd}"
+        # Launch rofi in drun mode with the specified theme.
+        hyprctl -q switchxkblayout "$keyboard_device" 2
+esac

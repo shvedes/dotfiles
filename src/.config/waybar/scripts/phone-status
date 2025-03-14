@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+
+# Source the library containing helper functions
+source "$XDG_CONFIG_HOME/hypr/scripts/libhypr"
+
+# Check if the necessary tools for inotify are installed
+is_installed inotify-tools:inotifywait
+
+# Specify the path to the phone status file
+target="$XDG_RUNTIME_DIR/phone-status.json"
+
+# Read the previous line from the phone status file
+prev_line=$(cat "$target")
+echo "$prev_line"
+
+# Start an infinite loop that monitors changes in the file
+while read -r _; do
+    # Read the current line from the phone status file
+    new_line=$(cat "$target")
+    
+    # If the current line is different from the previous one, print it
+    [ "$new_line" != "$prev_line" ] && echo "$new_line"
+    
+    # Update the prev_line variable to track changes
+    prev_line="$new_line"
+done < <(inotifywait -m -q -e close_write "$target")

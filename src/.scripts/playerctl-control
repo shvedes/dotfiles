@@ -1,0 +1,267 @@
+#!/usr/bin/env bash
+
+# shellcheck disable=all
+
+# Script: Unified MPRIS Player Control
+# Description: Combines general media control with Waybar-specific module handling.
+#              Use without flags for normal play/pause/next/previous controls.
+#              Use with --waybar [player] for targeted player control (Waybar modules).
+
+# Configuration
+# STATE_FILE: Path to the file where the last active player's name is stored.
+# This allows the script to remember the last player used across sessions and reboots.
+STATE_FILE="$HOME/.cache/mpris_state"
+
+# ALLOWED_PLAYERS: List of players to prioritize. Supports shell pattern matching.
+# These players will be considered first when performing actions like play/pause or track control.
+ALLOWED_PLAYERS=("lowfi*" "mpd" "spotify")
+
+# IGNORED_PLAYERS: List of players to ignore. Supports shell pattern matching.
+# These players will be excluded from consideration, even if they are active.
+IGNORED_PLAYERS=("firefox*" "mpv")
+
+# --- Core Functions ---
+
+# Function: get_players
+# Description: Retrieves a list of available MPRIS players, excluding those that match the IGNORED_PLAYERS patterns.
+# This ensures that only relevant players are considered for control.
+get_players() {
+    # Use `playerctl -l` to list all available players. Errors are redirected to /dev/null to suppress output.
+    playerctl -l 2>/dev/null | while read -r player; do
+        ignore=0
+        # Check if the player matches any pattern in IGNORED_PLAYERS.
+        for pattern in "${IGNORED_PLAYERS[@]}"; do
+            # Use shell pattern matching to compare the player name with the pattern.
+            [[ $player == "$pattern" ]] && { ignore=1; break; }
+        done
+        # If the player is not ignored, add it to the list of available players.
+        (( ignore == 0 )) && echo "$player"
+    done
+}
+
+# Function: is_allowed
+# Description: Checks if a given player is in the ALLOWED_PLAYERS list.
+# This ensures that only prioritized players are controlled.
+is_allowed() {
+    local player=$1
+    # Compare the player name with each pattern in ALLOWED_PLAYERS.
+    for pattern in "${ALLOWED_PLAYERS[@]}"; do
+        [[ $player == $pattern ]] && return 0  # Player is allowed.
+    done
+    return 1  # Player is not allowed.
+}
+
+# Function: find_lowfi
+# Description: Finds an active Lowfi instance from the list of available players.
+# This is used to resolve the Lowfi player when targeting it specifically.
+find_lowfi() {
+    for player in $(get_players); do
+        if [[ $player == lowfi.* ]]; then
+            echo "$player"
+            return 0
+        fi
+    done
+    return 1
+}
+
+# Function: toggle_player
+# Description: Toggles the play/pause state of a specific player.
+# This is used in Waybar mode to control the targeted player.
+toggle_player() {
+    local target=$1
+    # Get the current status of the player (Playing, Paused, or other).
+    local current_status=$(playerctl -p "$target" status 2>/dev/null)
+    
+    # Toggle based on the current status.
+    case $current_status in
+        "Playing") playerctl -p "$target" pause ;;  # Pause if playing.
+        "Paused")  playerctl -p "$target" play ;;   # Play if paused.
+        *)         playerctl -p "$target" play ;;   # Play if status is unknown.
+    esac
+}
+
+# --- Waybar Mode Implementation ---
+
+# Function: handle_waybar_mode
+# Description: Handles player control for Waybar modules.
+# This mode is activated with the --waybar flag and targets a specific player.
+handle_waybar_mode() {
+    local target_player=$1
+    local lowfi_instance=""
+
+    # Resolve Lowfi instance if the target is "lowfi".
+    if [[ $target_player == "lowfi" ]]; then
+        if ! lowfi_instance=$(find_lowfi); then
+            # Notify the user if no Lowfi instance is found.
+            notify-send "Player Error" "No active Lowfi instance found"
+            exit 1
+        fi
+        # Update the target player to the resolved Lowfi instance.
+        target_player=$lowfi_instance
+    fi
+
+    # Check if the target player is allowed.
+    if ! is_allowed "$target_player"; then
+        # Notify the user if the player is not allowed.
+        notify-send "Player Error" "Player not allowed: $target_player"
+        exit 1
+    fi
+
+    # Pause all other allowed players.
+    for player in $(get_players); do
+        if [[ $player != "$target_player" ]] && is_allowed "$player"; then
+            playerctl -p "$player" pause 2>/dev/null
+        fi
+    done
+
+    # Toggle the target player's state.
+    toggle_player "$target_player"
+
+    # Update the state file with the current target player.
+    echo "$target_player" > "$STATE_FILE"
+    exit 0
+}
+
+# Function: get_status
+# Description: Retrieves the playback status (e.g., Playing, Paused, Stopped) of a specific player.
+# This helps determine which player is currently active.
+get_status() {
+    playerctl status -p "$1" 2>/dev/null || echo "Stopped"  # Default to "Stopped" if the player is not available.
+}
+
+# Function: handle_track_control
+# Description: Handles next/previous track commands for the active or last-used player.
+# This function ensures that track controls are applied to the correct player and handles restrictions (e.g., LowFi).
+handle_track_control() {
+    local command=$1  # The command to execute (next or previous).
+    local players=($(get_players))  # Get the list of available players.
+    local target_player=""
+
+    # Try to find the currently active player (i.e., one that is playing).
+    for player in "${players[@]}"; do
+        if is_allowed "$player" && [[ $(get_status "$player") == "Playing" ]]; then
+            target_player=$player
+            break
+        fi
+    done
+
+    # If no active player is found, fall back to the last used player (stored in STATE_FILE).
+    if [[ -z "$target_player" && -f "$STATE_FILE" ]]; then
+        last_player=$(<"$STATE_FILE")  # Read the last player from the state file.
+        for player in "${players[@]}"; do
+            if [[ $player == "$last_player" ]] && is_allowed "$player"; then
+                target_player=$player
+                break
+            fi
+        done
+    fi
+
+    # Handle LowFi's restriction on the "previous" command.
+    if [[ $command == "previous" && $target_player == lowfi* ]]; then
+        # Notify the user that LowFi does not support the "previous" command.
+        notify-send -r 1 -i "$XDG_CONFIG_HOME/hypr/icons/now-playing.svg" "Hyprland" "LowFi does not support this feature"
+        exit 1
+    fi
+
+    # Execute the command if a valid player is found.
+    if [[ -n "$target_player" ]]; then
+        # Get the player's status before executing the command
+        prev_status=$(get_status "$target_player")
+
+        # Execute the track control command (next/previous)
+        playerctl -p "$target_player" "$command"
+
+        # Start playback if:
+        # 1. The player was not playing before the command, or
+        # 2. The player is still not playing after the command
+        if [[ $prev_status != "Playing" ]] || [[ $(get_status "$target_player") != "Playing" ]]; then
+            playerctl -p "$target_player" play 2>/dev/null
+        fi
+    else
+        # Notify the user if no eligible player is found.
+        notify-send -r 1 -i "$XDG_CONFIG_HOME/hypr/icons/now-playing.svg" "Hyprland" "No eligible player found for track control"
+        exit 1
+    fi
+}
+
+# --- Main Execution Logic ---
+
+# Handle Waybar mode first.
+if [[ $1 == "--waybar" ]]; then
+    if [[ $# -ne 2 ]]; then
+        echo "Usage: $0 --waybar [lowfi|mpd|spotify]"
+        exit 1
+    fi
+    handle_waybar_mode "$2"
+fi
+
+# Handle normal operation.
+case $1 in
+    next|previous)
+        handle_track_control "$1"
+        exit 0
+        ;;
+    "")
+        # Original play/pause logic.
+        ;;
+    *)
+        echo "Invalid argument. Usage:"
+        echo "  General control: $0 [next|previous]"
+        echo "  Waybar modules:  $0 --waybar [lowfi|mpd|spotify]"
+        exit 1
+        ;;
+esac
+
+# --- Play/Pause Logic ---
+
+players=($(get_players))  # Get the list of available players.
+active_player=""
+
+# Find the currently active player (i.e., one that is playing).
+for player in "${players[@]}"; do
+    if is_allowed "$player" && [[ $(get_status "$player") == "Playing" ]]; then
+        active_player=$player
+        break
+    fi
+done
+
+# Pause the active player and save its name to the state file.
+if [[ -n "$active_player" ]]; then
+    echo "$active_player" > "$STATE_FILE"  # Save the active player to the state file.
+    playerctl -p "$active_player" pause  # Pause the player.
+    exit 0
+fi
+
+# Resume logic when no active players are found.
+if [[ -f "$STATE_FILE" ]]; then
+    last_player=$(<"$STATE_FILE")  # Read the last player from the state file.
+    # Verify that the last player is still available and allowed.
+    for player in "${players[@]}"; do
+        if [[ $player == "$last_player" ]] && is_allowed "$player"; then
+            playerctl -p "$player" play  # Resume playback for the last player.
+            exit 0
+        fi
+    done
+fi
+
+# Fallback player priority system.
+# If no active or last-used player is found, try to start playback on a fallback player.
+for player in "spotify" "${ALLOWED_PLAYERS[@]}"; do
+    # Handle pattern-based players (e.g., lowfi*).
+    if [[ $player == "spotify" ]] || [[ $player == "lowfi*" ]]; then
+        for actual_player in "${players[@]}"; do
+            if [[ $actual_player == $player ]] && is_allowed "$actual_player"; then
+                playerctl -p "$actual_player" play  # Start playback on the fallback player.
+                exit 0
+            fi
+        done
+    # Handle exact match players.
+    elif [[ " ${players[*]} " == *" $player "* ]]; then
+        playerctl -p "$player" play  # Start playback on the fallback player.
+        exit 0
+    fi
+done
+
+# If no valid players are found, notify the user.
+notify-send -r 1 -i "$XDG_CONFIG_HOME/hypr/icons/now-playing.svg" "Hyprland" "No available players found!"
+exit 1

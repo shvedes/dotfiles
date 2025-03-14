@@ -1,0 +1,13 @@
+[Unit]
+Description=Play LoFi music in background
+PartOf=graphical-session.target
+After=graphical-session.target
+Requisite=graphical-session.target
+
+[Service]
+Type=simple
+ExecStart=lowfi -p
+Restart=on-failure
+
+[Install]
+WantedBy=graphical-session.target

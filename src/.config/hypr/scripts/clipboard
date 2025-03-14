@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+
+# Load the helper functions and variables from the libhypr library
+source "$XDG_CONFIG_HOME/hypr/scripts/libhypr"
+
+# Check if 'cliphist' (clipboard history tool) is installed
+is_installed cliphist
+
+# If the user is currently in a game, exit the script to avoid interference
+is_in_game && exit 1
+
+# Function to check if the clipboard history is empty
+is_empty() {
+    # List clipboard entries and count the number of lines.
+    # If the count is 0, return 0 (true), otherwise return 1 (false).
+    [[ "$(cliphist list | wc -l)" == "0" ]] && return 0 || return 1
+}
+
+# Evaluate the first command-line argument to decide what action to perform
+case "$1" in
+    # 'show' option: display a menu to select a clipboard entry
+    show)
+        # If the clipboard history is empty, send a notification and exit.
+        is_empty && notify-send -r 1 -i "$ICONS_DIR/clipboard-empty.svg" "Hyprland" "Clipboard is empty" && exit 1
+
+        # List clipboard entries and pass them to 'rofi' for selection:
+        #   - 'rofi' displays the entries in a 2-column menu with a custom theme.
+        #   - The selected entry is decoded and copied back to the clipboard using 'wl-copy'.
+        # cliphist list | rofi -dmenu -display-columns 2 -theme "$XDG_CONFIG_HOME/rofi/config.rasi" -theme-str 'configuration {show-icons: false;} inputbar {enabled: false;}' | cliphist decode | wl-copy
+        cliphist list | rofi -dmenu -display-columns 2 -theme "$XDG_CONFIG_HOME/rofi/config.rasi" -theme-str 'configuration {show-icons: false;}' | cliphist decode | wl-copy
+        ;;
+    
+    # 'clear' option: clear the clipboard history
+    clear)
+        # If the clipboard history is empty, send a notification and exit.
+        is_empty && notify-send -r 1 -i "$ICONS_DIR/clipboard-empty.svg" "Hyprland" "Clipboard is empty" && exit 1
+        
+        # Terminate any running 'rofi' instances, clear the clipboard history with 'cliphist wipe',
+        # and then send a notification confirming that the clipboard has been cleared.
+        killall rofi; cliphist wipe && notify-send -r 1 -i "$ICONS_DIR/clipboard.svg" "Hyprland" "Clipboard cleared"
+        ;;
+esac

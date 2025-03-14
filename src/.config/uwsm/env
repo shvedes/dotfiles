@@ -1,0 +1,46 @@
+
+# Automatically use Wayland. If not available - fallback to XWayland
+export ELECTRON_OZONE_PLATFORM_HINT="auto"
+export SDV_VIDEODRIVER="wayland"
+export GDK_BACKEND="wayland,x11"
+export QT_QPA_PLATFORM="wayland;xcb"
+export CLUTTER_BACKEND="wayland"
+
+########## XDG Base Directory specification
+export XDG_CONFIG_HOME="${HOME}/.config"
+export XDG_DATA_HOME="${HOME}/.local/share"
+export XDG_STATE_HOME="${HOME}/.local/state"
+export XDG_CACHE_HOME="${HOME}/.cache"
+export XDG_DATA_DIRS="/usr/local/share:/usr/share"
+export XDG_CONFIG_DIRS="/etc/xdg"
+
+########## Theming
+export XCURSOR_THEME="BreezeX-Gruvbox-Light" # The cursor theme should be in $XDG_DATA_HOME/icons
+export QT_QPA_PLATFORMTHEME="qt6ct"
+export GTK_THEME="Gruvbox-Dark" # Theme should be in $XDG_DATA_HOME/themes or `gruvbox-gtk-theme-git` package
+export BAT_THEME="gruvbox-dark" # Built-in theme
+export XCURSOR_SIZE=22
+
+########## Defaults
+export BROWSER="/usr/bin/firefox"
+export SYSTEMD_EDITOR="/sbin/nvim"
+export MANPAGER="/sbin/nvim +Man!"
+export SUDO_EDITOR="/sbin/nvim"
+export EDITOR="/sbin/nvim"
+export PATH="$HOME/.scripts:$PATH"
+
+########### Package managers cache reassigment
+export GOPATH="$XDG_CACHE_HOME/go" # Prevents creating "go" folder in $HOME
+# The idea the same, but https://github.com/rust-lang/cargo/issues/210#issuecomment-49337943
+# So it's up to you
+export CARGO_HOME="$XDG_CACHE_HOME/cargo" 
+
+########## Customs
+# To avoid having to set the mangohud flags separately for each game and/or in 
+# the global settings of the game launcher, you can set the desired settings in this variable.
+export MANGOHUD_CONFIG="fps_only,alpha=0.3,background_alpha=0,text_color=ffffff,font_size=18"
+
+# Custom sudo prompt
+export SUDO_PROMPT="$(tput setaf 1)$(tput bold)[sudo]$(tput sgr0) Password for $(whoami): "
+
+# vim:ft=bash

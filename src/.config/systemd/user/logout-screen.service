@@ -1,0 +1,18 @@
+[Unit]
+# PLEASE, do not change anything here!
+Description=Show Log Out "splashscreen" on session terminate
+After=graphical-session.target wayland-wm@hyprland.desktop.service
+Before=exit.target
+PartOf=graphical-session.target
+DefaultDependencies=no
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+Environment=XDG_CONFIG_HOME=%h/.config
+ExecStop=/bin/sh -c 'nohup /bin/hyprlock -c $XDG_CONFIG_HOME/hypr/extras/logout-screen.conf &> /dev/null &'
+KillMode=process
+TimeoutStopSec=0
+
+[Install]
+WantedBy=graphical-session.target

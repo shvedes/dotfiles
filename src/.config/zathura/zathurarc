@@ -1,0 +1,44 @@
+set default-fg                "#EBDBB2"
+set default-bg 			      "#1D2021"
+
+set completion-bg		      "#3C3836"
+set completion-fg		      "#FBF1C7"
+set completion-highlight-bg	  "#504945"
+set completion-highlight-fg	  "#FBF1C7"
+set completion-group-bg		  "#504945"
+set completion-group-fg		  "#FBF1C7"
+
+set statusbar-fg		      "#EBDBB2"
+set statusbar-bg		      "#282828"
+
+set notification-bg		      "#3C3836"
+set notification-fg		      "#EBDBB2"
+set notification-error-bg	  "#282828"
+set notification-error-fg	  "#FB4934"
+set notification-warning-bg	  "#282828"
+set notification-warning-fg	  "#D65D0E"
+
+set inputbar-fg			      "#EBDBB2"
+set inputbar-bg 		      "#282828"
+
+set recolor                   "true"
+set recolor-lightcolor		  "#282828"
+set recolor-darkcolor		  "#EBDBB2"
+
+set index-fg			      "#EBDBB2"
+set index-bg			      "#282828"
+set index-active-fg		      "#D5C4A1"
+set index-active-bg		      "#3C3836"
+
+set render-loading-bg		  "#282828"
+set render-loading-fg		  "#D79921"
+
+set highlight-color		      "rgba(60,56,54,0.5)"
+set highlight-fg              "#EBDBB2"
+set highlight-active-color	  "#EBDBB2"
+
+set font                      "JetBrains Mono Semibold 11"
+set selection-clipboard       "clipboard"
+
+map j feedkeys "<C-Down>"
+map k feedkeys "<C-Up>"

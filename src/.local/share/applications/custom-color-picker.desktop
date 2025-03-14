@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=Color Picker
+Icon=color-picker
+Exec=zenity --color-selection
+Keywords=zenity;color;picker

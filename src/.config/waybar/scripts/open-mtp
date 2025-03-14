@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+# This script is an assistant for the phone-connection service. 
+# When the service is correctly set up and running, a specific Waybar module will be displayed,
+# indicating that the PC is connected to your phone, and the system won't automatically suspend while the phone remains available.
+# If you click on this active module, a Thunar window will open, connecting to the remote MTP server you launched on your phone.
+
+# Maybe I'm reinventing the wheel, and using sshfs would be simpler, but for me, this works
+# Usage ./open-mtp LOCAL_IP PORT
+
+source "$XDG_CONFIG_HOME/hypr/scripts/libhypr"
+
+is_installed gnu-netcat:nc
+
+if ! nc -zvn "$IP" "$PORT"; then
+	notify-send -r 1 -i "${ICONS_DIR}/alert.svg" "Hyprland" "Cannot connect to to MTP server! Is it active?"
+	exit 1
+fi
+
+# It is assumed that the MTP server uses the same username as your Linux system
+uwsm app -- thunar "ftp://$(whoami)@${1}:${2}"

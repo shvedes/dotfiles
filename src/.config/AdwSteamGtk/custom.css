@@ -1,0 +1,82 @@
+:root {
+
+	/* gruvbox colors */
+	--bg0: 40, 40, 40;
+	--bg0_s: 50, 48, 47;
+	--bg0_h: 29, 32, 33;
+	--bg1: 60, 56, 54;
+	--bg2: 80, 73, 69;
+	--bg3: 102, 92, 84;
+	--fg0: 251, 241, 199;
+	--fg1: 235, 219, 178;
+	--accent: 217, 154, 59;
+	--green: 184, 187, 38;
+	--blue: 131, 165, 152;
+	--orange: 214, 93, 14;
+	--offline: 102, 92, 84;
+	--red: 251, 73, 52;
+	--popvers-bg: 51, 51, 51;
+
+	/* The main accent color and the matching text value */
+	--adw-accent-bg-rgb: var(--accent);
+	--adw-accent-fg-rgb: var(--fg0);
+	--adw-accent-rgb: var(--accent);
+
+	/* destructive-action buttons */
+	--adw-destructive-bg-rgb: var(--accent);
+	--adw-destructive-fg-rgb: var(--bg0);
+	--adw-destructive-rgb: var(--accent);
+
+	/* Levelbars, entries, labels and infobars. These don't need text colors */
+	--adw-success-bg-rgb: var(--green);
+	--adw-success-fg-rgb: var(--bg0);
+	--adw-success-rgb: var(--green);
+
+	--adw-warning-bg-rgb: var(--orange);
+	--adw-warning-fg-rgb: var(--fg0);
+	--adw-warning-rgb: var(--orange);
+
+	--adw-error-bg-rgb: var(--red);
+	--adw-error-fg-rgb: var(--fg0);
+	--adw-error-rgb: var(--red);
+
+	/* Window */
+	--adw-window-bg-rgb: var(--bg0);
+	--adw-window-fg-rgb: var(--fg0);
+
+	/* Header bar, search bar, tab bar */
+	--adw-headerbar-bg-rgb: var(--bg0_h);
+	--adw-headerbar-fg-rgb: var(--fg0);
+	--adw-headerbar-border-rgb: var(--bg3);
+	--adw-headerbar-backdrop-rgb: var(--adw-window-bg-rgb);
+
+	/* Split pane views */
+	--adw-sidebar-bg-rgb: var(--bg0_h);
+	--adw-sidebar-fg-rgb: var(--fg1);
+	--adw-sidebar-backdrop-rgb: 255, 255, 255;
+
+	/* Cards, boxed lists */
+	--adw-card-bg-rgb: 146, 131, 116; /* do not change! */
+	--adw-card-fg-rgb: var(--fg1);
+
+	/* Dialogs */
+	--adw-dialog-bg-rgb: var(--bg0);
+	--adw-dialog-fg-rgb: var(--fg1);
+
+	/* Popovers */
+	--adw-popover-bg-rgb: var(--popvers-bg);
+	--adw-popover-fg-rgb: var(--fg1);
+
+	/* Thumbnails */
+	--adw-thumbnail-bg-rgb: var(--bg0);
+	--adw-thumbnail-fg-rgb: var(--fg1);
+
+	/* Miscellaneous */
+	--adw-shade-rgb: var(--bg3);
+	--adw-shade-a: 0.36;
+
+	/* Skin-specific */
+	--adw-user-offline-rgb: var(--offline);
+	--adw-user-online-rgb: var(--blue);
+	--adw-user-ingame-rgb: var(--green);
+}

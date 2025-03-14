@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=Reboot
+Exec=bash -c 'if zenity --question --text "Reboot the system?"; then killall -s KILL spotify; systemctl reboot; fi'
+Icon=system-reboot
+Keywords=reboot;rebooot;rboo;reoo;revoot

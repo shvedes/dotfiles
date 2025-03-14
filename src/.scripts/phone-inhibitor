@@ -1,0 +1,88 @@
+#!/usr/bin/env bash
+
+source "$XDG_CONFIG_HOME/hypr/scripts/libhypr"
+
+# Check if a required argument (phone identifier) was provided
+# The script needs this to construct the phone's IP address
+if [ -z "$1" ]; then
+    echo "Script requires an IP address"
+    exit 1
+fi
+
+PHONE_IP="$1"  # Construct IP using first network segment and script argument
+CHECK_INTERVAL=5  # Time between connectivity checks (in seconds)
+
+# Status file configuration
+# This JSON file will store the current status for external tools to read
+# It uses JSON because this file will be read by the custom Waybar module
+STATUS_FILE="$XDG_RUNTIME_DIR/phone-status.json"  # Standard user-specific runtime directory
+
+# System inhibition and state tracking
+INHIBIT_PID=""  # Will store process ID of any active system inhibitor
+PREV_STATUS=""  # Remembers previous state to avoid redundant updates
+
+# Initialize status file with empty text
+# This ensures clean startup without residual statuses
+# By default, Waybar will not show the output of the module until the contents of the JSON file are changed
+echo '{"text": ""}' > "$STATUS_FILE"
+
+# Cleanup function for proper resource management
+# Handles inhibitor process and status file reset
+cleanup() {
+    # Remove system inhibitor if active
+    if [ -n "$INHIBIT_PID" ]; then
+        kill "$INHIBIT_PID" 2>/dev/null
+    fi
+    # Clear status display and exit
+    echo '{"text": ""}' > "$STATUS_FILE"
+    exit 0
+}
+
+# Register cleanup as handler for common termination signals
+# Ensures proper cleanup even if script is interrupted
+trap cleanup EXIT INT TERM
+
+# Main monitoring loop
+# Continuously checks phone connectivity and manages system state
+while true; do
+    # Check phone connectivity with single ping packet
+    if ping -c 1 -W 1 "$PHONE_IP" &>/dev/null; then
+        # Only act if status changed from previous check
+        if [ "$PREV_STATUS" != "connected" ]; then
+            echo "[$(date)] Phone connected"  # Log event
+            
+            # Prevent system idle/sleep while phone is connected
+            # Uses systemd's inhibition mechanism with background process
+            systemd-inhibit --what=idle --why="Phone connected" \
+                --who="Phone Inhibitor" sleep infinity >/dev/null 2>&1 &
+            INHIBIT_PID=$!  # Store inhibitor's process ID
+            
+            # Update status file for Waybar module
+            echo '{"text": "Connected"}' > "$STATUS_FILE"
+            PREV_STATUS="connected"  # Remember current state
+        fi
+    else
+        # Wait briefly before double-checking connection
+        # Prevents false disconnection detection from transient errors
+        sleep 1
+        if ! ping -c 1 -W 1 "$PHONE_IP" &>/dev/null; then
+            # Only act if status changed from previous check
+            if [ "$PREV_STATUS" != "disconnected" ]; then
+                echo "[$(date)] Phone disconnected"  # Log event
+                
+                # Remove system inhibitor if present
+                if [ -n "$INHIBIT_PID" ]; then
+                    kill "$INHIBIT_PID" 2>/dev/null
+                    INHIBIT_PID=""
+                fi
+                
+                # Clear status display for Waybar module
+                echo '{"text": ""}' > "$STATUS_FILE"
+                PREV_STATUS="disconnected"  # Remember current state
+            fi
+        fi
+    fi
+    
+    # Wait before next connectivity check
+    sleep "$CHECK_INTERVAL"
+done

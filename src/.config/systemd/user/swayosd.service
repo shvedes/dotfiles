@@ -1,0 +1,13 @@
+[Unit]
+Description=SwayOSD systemd service
+PartOf=graphical-session.target
+After=graphical-session.target
+Requisite=graphical-session.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/swayosd-server
+Restart=on-failure
+
+[Install]
+WantedBy=graphical-session.target

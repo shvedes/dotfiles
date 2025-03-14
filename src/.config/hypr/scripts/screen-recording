@@ -1,0 +1,55 @@
+#!/usr/bin/env bash
+
+# shellcheck disable=all
+
+is_installed gpu-screen-recorder
+source "$XDG_CONFIG_HOME/hypr/scripts/libhypr"
+
+if [ ! -f "$XDG_CONFIG_HOME/user-dirs.dirs" ]; then
+	output_dir="$HOME/Videos/Recordings"
+else
+	source "$XDG_CONFIG_HOME/user-dirs.dirs"
+	output_dir="${XDG_VIDEOS_DIR}/Recordings"
+fi
+
+# Check if recording is already running
+if pidof gpu-screen-recorder > /dev/null; then
+    # Gracefully stop recording with SIGINT (save file)
+    kill -s SIGINT "$(pidof gpu-screen-recorder)"
+    # Confirm save notification with screen flash
+    notify-send -r 1 -i "$ICONS_DIR/recording-off.svg" "Hyprland" "Screen recording saved to default folder"
+	# That's the neat part
+	# When screen recording ends, Hyprland briefly loads a shader that slightly increases brightness, creating a flash effect.
+	# This effect occurs at the end of recording because shaders applied by Hyprland are also captured in recordings/screenshots, 
+	# causing an annoying flash in the first seconds of the video.
+	flash_screen
+    exit 0
+fi
+
+# Start new recording notification
+notify-send -r 1 -i "$ICONS_DIR/recording-on.svg" "Hyprland" "Recording screen"
+
+# Set frame rate based on gaming detection
+# Uses 120 FPS for games, 30 FPS otherwise
+if is_in_game; then
+    fps=120
+else
+    fps=30
+fi
+
+if [ -n "$1" ]; then
+	restore_portal=no
+else
+	restore_portal=yes
+fi
+
+# Start recording with parameters:
+# -w portal: Use XDG desktop portal
+# -restore-portal-session: Remember (or do not) previous settings
+# -c mp4: Container format
+# -f $fps: Frame rate from previous detection
+# -k h264: Video codec
+# -q ultra: Ultra quality preset
+# -fm cfr: Constant frame rate
+# -a: Record both output (speakers) and input (microphone)
+gpu-screen-recorder -w portal -restore-portal-session "$restore_portal" -c mp4 -f $fps -k h264 -q ultra -fm cfr -a "default_output|default_input" -o "${output_dir}/$(date +"recording-%Y-%m-%d-%H-%M-%S").mp4"

@@ -1,0 +1,38 @@
+#!/usr/bin/env bash
+
+# Toggle between power profiles and show visual feedback
+# Requires: power-profiles-daemon (for powerprofilesctl) and swayosd
+
+# Source common functions from Hyprland configuration
+source "$XDG_CONFIG_HOME/hypr/scripts/libhypr"
+
+# Verify required components are installed before proceeding
+# Checks for both the package (power-profiles-daemon) and the command (powerprofilesctl)
+# Format: is_installed <package_name>:<binary>
+is_installed power-profiles-daemon:powerprofilesctl
+
+# Get current active power profile
+current="$(powerprofilesctl get)"
+
+# Cycle through power profiles in this order:
+# Performance -> Power Saver -> Balanced -> Performance...
+case "$current" in
+    "performance")
+        # Show On-Screen-Display notification
+        swayosd-client --custom-message "Power saving" --custom-icon power
+        # Switch to power-saver mode
+        powerprofilesctl set power-saver
+        ;;
+    "power-saver")
+        # Show On-Screen-Display notification
+        swayosd-client --custom-message "Balanced" --custom-icon power
+        # Switch to balanced mode
+        powerprofilesctl set balanced
+        ;;
+    "balanced")
+        # Show On-Screen-Display notification
+        swayosd-client --custom-message "Performance" --custom-icon power
+        # Switch to performance mode
+        powerprofilesctl set performance
+        ;;
+esac

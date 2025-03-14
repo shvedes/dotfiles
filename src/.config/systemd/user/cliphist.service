@@ -1,0 +1,15 @@
+[Unit]
+# Cmon sentriz, do it
+# https://github.com/sentriz/cliphist/issues/132
+Description=Wayland Clipboard Daemon
+PartOf=graphical-session.target
+After=graphical-session.target
+Requisite=graphical-session.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/wl-paste --type text image --watch cliphist store
+Restart=on-failure
+
+[Install]
+WantedBy=graphical-session.target

@@ -1,0 +1,36 @@
+[global]
+layer								= top
+font								= "JetBrains Mono Semibold 9"
+follow								= none
+notification_limit					= 3
+
+frame_width							= 1
+width								= 400
+height								= 400
+origin								= top-right
+offset								= 30x30
+corner_radius						= 6
+
+min_icon_size						= 24
+
+indicate_hidden						= false
+separator_height					= 2
+padding								= 8
+horizontal_padding					= 8
+text_icon_padding					= 16
+gap_size							= 6
+separator_color						= frame
+
+sort								= update
+format								= "<big><b><span foreground='#D79921'>%s</span></b></big>\n%b" # We'll use pango since dunst supports it
+show_indicators						= false
+mouse_left_click					= do_action
+title								= "Dunst"
+class								= "dunst"
+timeout								= 3
+
+background							= "#212121"
+foreground							= "#fbf1c7"
+frame_color							= "#928374"
+
+# vim:ft=cfg

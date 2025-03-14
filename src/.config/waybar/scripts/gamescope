@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+# So, for some, this script might seem useless, but I use it quite often.
+
+# This script constantly checks the class of all windows and sends JSON data to a custom Waybar module.
+# If there's a window running with the class `gamescope` (in my case, it's almost always CS2), 
+# the script will display the game's name, and it will appear in Waybar. 
+# If you click on the Waybar module, Hyprland will activate the virtual workspace where the game window is located.
+
+while true; do
+	if ! pidof gamescope &> /dev/null; then
+		echo "{\"text\": \"\"}"
+	else
+		title="$(hyprctl clients -j | jq '.[] | select(.class == "gamescope").title' | sed 's/"//g')"
+		temperature=$(sensors | awk '/junction/ {gsub(/[^0-9.]/, "", $2); print sprintf("%.0f", $2)}')
+		echo "{\"text\": \"<span size='11000'>\uf11b</span>  $title  <span foreground='#505050'>⏽</span> \uf2cb  $temperature°C\"}"
+	fi
+	sleep 1
+done

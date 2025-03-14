@@ -1,0 +1,66 @@
+:root {
+	--spice-sidebar:        var(--spice-dark-bg);
+	--spice-button-active:  var(--spice-accent);
+	--spice-main:           var(--spice-main-bg);
+	--spice-button:         var(--spice-accent);
+
+}
+
+/* add a border for each section */
+.ffFwfKcPDbmAPLXzxzKq, 
+.b7r2WRiu5f9Q99qmyreh, /* Search bar */ 
+.main-view-container__scroll-node,
+.main-yourLibraryX-libraryContainer,
+.MWD1i_CSJ5N9wRBDpZmX, .main-nowPlayingBar-nowPlayingBar {
+	border: 1px solid var(--spice-bg4) !important;
+	border-radius: 8px !important
+} 
+.b7r2WRiu5f9Q99qmyreh {
+	border-radius: 24px !important
+}
+.b7r2WRiu5f9Q99qmyreh:hover {
+	border-color: var(--spice-bg6) !important
+}
+
+/* toggle button backgroud on hover */
+.x-toggle-indicatorWrapper:hover {
+	background-color: var(--spice-bg4) !important
+}
+
+/* extra padding and margin for player section */
+.MWD1i_CSJ5N9wRBDpZmX, .main-nowPlayingBar-nowPlayingBar {
+	padding: 45px 20px !important;
+	margin: 8px 5px 8px 5px!important;
+}
+
+.view-homeShortcutsGrid-shortcut .view-homeShortcutsGrid-shortcutLink {
+	border: 1px solid var(--spice-bg4) !important;
+}
+.view-homeShortcutsGrid-shortcut .view-homeShortcutsGrid-main {
+	background-color: #2d2d2d !important;
+}
+
+.main-home-homeHeader,
+.main-home-filterChipsSection.fIvMht6B9HdROywMNJZ4:after {
+	background-color: var(--spice-main-bg) !important
+}
+
+/* Playlists's play button */
+.encore-dark-theme .encore-bright-accent-set {
+	--background-highlight: var(--spice-accent-hover) !important
+}
+
+/* Home button */
+.Root__globalNav .Dp3xccI7c2f_JSJ8OHYu {
+	border: 1px solid var(--spice-bg4) !important
+}
+.Root__globalNav .Dp3xccI7c2f_JSJ8OHYu:hover {
+	border: 1px solid var(--spice-bg6) !important
+}
+
+/* ======= Disabled elements ======= */
+
+/* Notifications & Friend Activity */
+.LedDBMWCxYhMD20KtPJo.main-actionButtons {
+	display: none !important
+}
