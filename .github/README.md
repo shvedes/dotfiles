@@ -12,8 +12,6 @@
   </tr>
   <tr>
     <td><img src="./assets/userstyle-3.png" alt="userstyle 3"></td>
-  </tr>
-  <tr>
     <td><img src="./assets/vesktop.png" alt="vesktop"></td>
   </tr>
 </table>
