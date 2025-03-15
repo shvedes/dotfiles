@@ -1,5 +1,10 @@
+<div align="center">
+
+[![](https://readme-typing-svg.demolab.com?font=JetBrains+Mono&size=32&duration=3000&pause=1000&color=EBDBB2&center=true&vCenter=true&random=false&width=435&lines=Gruvin')](https://git.io/typing-svg)
 
 # Gruvin' - systemd driven Hyprland setup
+
+</div>
 
 <table border="1">
   <tr>
