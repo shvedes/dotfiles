@@ -18,7 +18,13 @@ image="${XDG_PICTURES_DIR}/Screenshots/$(date +"screenshot-%Y-%m-%d-%H-%M-%S").p
 
 # Notification helper function
 send_notification() {
-    notify-send -r 1 -i "$ICONS_DIR/screenshot.svg" "Hyprland" "Screenshot copied to clipboard"
+
+	case "$1" in
+		area) icon="$ICONS_DIR/screenshot.svg" ;;
+		*)    icon="$ICONS_DIR/screenshot-fullscreen.svg" ;;
+	esac
+
+    notify-send -r 1 -i "$icon" "Hyprland" "Screenshot copied to clipboard"
 }
 
 # Handle different screenshot modes
@@ -35,7 +41,7 @@ case "$1" in
         [[ ! -f "$image" ]] && exit 1
 
         # Copy to clipboard and notify
-        wl-copy --type image/png < "$image" && send_notification 
+        wl-copy --type image/png < "$image" && send_notification "$1"
         ;;
 
     window)
@@ -49,11 +55,11 @@ case "$1" in
         grim -g "$window" "$image" && flash_border
 
         # Copy and notify
-        wl-copy --type image/png < "$image" && send_notification
+        wl-copy --type image/png < "$image" && send_notification "$1"
         ;;
 
     screen)
         # Full screen capture:
         # Capture, copy, notify, and flash screen
-        grim "$image" && wl-copy --type image/png < "$image" && send_notification && flash_screen
+        grim "$image" && wl-copy --type image/png < "$image" && send_notification "$1" && flash_screen
 esac
