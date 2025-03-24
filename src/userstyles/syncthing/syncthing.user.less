@@ -1,0 +1,229 @@
+/* ==UserStyle==
+@name           Gruvbox Dark for Syncthing
+@namespace      github.com/openstyles/stylus
+@version        1.0.0
+@description    Gruvbox Dark for Syncthing
+@author         shved
+@preprocessor   less
+==/UserStyle== */
+
+@-moz-document url-prefix("http://127.0.0.1:8384/") {
+
+  @background-1: rgb(29, 32, 33);
+  @background-2: rgb(40, 40, 40);
+  @background-3: rgb(50, 48, 47);
+  @background-4: rgb(60, 56, 54);
+  @background-5: rgb(80, 73, 69);
+
+  @gray-1: rgb(146, 131, 116);
+
+  @foreground-1: rgb(251, 241, 199);
+  @foreground-2: rgb(235, 219, 178);
+  @foreground-3: rgb(213, 196, 161);
+  @foreground-4: rgb(189, 174, 147);
+  @foreground-5: rgb(168, 153, 132);
+
+  @yellow-darker: rgb(194, 138, 30);
+  @yellow-dark: rgb(215, 153, 33);
+  @yellow-light: rgb(250, 189, 47);
+
+  @blue-1: rgb(69, 133, 136);
+
+  @green-1: rgb(152, 151, 26);
+  @green-2: rgb(184, 187, 38);
+
+  @purple-1: rgb(177, 98, 134);
+
+  @red-dark: rgb(204, 36, 29);
+  @red-light: rgb(251, 73, 52);
+
+
+  body {
+    color: @foreground-2 !important;
+    background: @background-2 !important;
+  }
+  a { color: @purple-1 !important; }
+
+  .navbar {
+    background: @background-1 !important;
+    border: none !important;
+    border-bottom: 3px solid @background-5 !important;
+  }
+  .nav-tabs {
+    border-bottom: 1px solid @background-5 !important;
+  }
+  .nav-tabs > li.active > a,
+  .nav-tabs > li.active > a:hover,
+  .nav-tabs > li.active > a:focus {
+    color: @foreground-1 !important;
+    background-color: @background-4 !important;
+    border: 1px solid @background-5 !important;
+  }
+  .nav-tabs > li > a:hover,
+  .nav-tabs > li > a:focus {
+    background-color: @background-3 !important;
+    border-bottom: 1px solid @background-5 !important;
+  }
+  .navbar-text,
+  .dropdown > a,
+  .dropdown-menu > li > a,
+  .hidden-xs > a,
+  .navbar-link {
+    color: @foreground-2 !important;
+  }
+
+  .dropdown-menu {
+    border: 2px solid @background-5 !important;
+    background-color: @background-1 !important;
+  }
+  .dropdown-menu > li > a:hover,
+  .dropdown-menu > li > a:focus {
+    color: @foreground-1 !important;
+    background-color: @background-3 !important;
+  }
+  .open > .dropdown-toggle,
+  .dropdown-toggle:hover {
+    border-color: @background-3 !important;
+    background-color: @background-3 !important;
+  }
+  .dropdown-menu > .active > a {
+    color: @foreground-1 !important;
+    background-color: @yellow-darker !important;
+  }
+
+  .divider {
+    background-color: @background-4 !important;
+    height: 2px !important;
+  }
+
+  li.hidden-xs:hover,
+  .navbar-link:hover,
+  .navbar-link:focus {
+    outline: none !important;
+    border-color: red !important;
+    background-color: red !important;
+  }
+
+  .panel {
+    background-color: @background-2 !important;
+    border-width: 2px !important;
+  }
+  .panel-default {
+    border-color: @background-5 !important;
+  }
+  .panel-default > .panel-heading {
+    color: @foreground-2 !important;
+    background-color: @background-3 !important;
+  }
+  .panel-warning > .panel-heading {
+    color: @background-1 !important;
+  }
+  .panel-progress { background: @yellow-dark !important; }
+  .panel-footer {
+    background-color: @background-2 !important;
+    border-width: 0 !important;
+  }
+  .table-striped > tbody > tr:nth-of-type(odd) {
+    background-color: @background-3 !important;
+  }
+  .panel-group .panel-heading + .panel-collapse > .panel-body,
+  .panel-group .panel-heading + .panel-collapse > .list-group {
+    border-top: 1px solid @background-5 !important;
+  }
+
+
+  .identicon rect { fill: @foreground-2 !important; }
+  .panel-warning .identicon rect { fill: @background-3 !important; }
+
+
+  .btn-default {
+    color: @foreground-2 !important;
+    background-color: @background-4 !important;
+  }
+  .btn-default:hover,
+  .btn-default:focus,
+  .btn-default.focus {
+    color: @foreground-1 !important;
+    background-color: @background-5 !important;
+  }
+  .btn-primary,
+  .btn-warning {
+    background-color: @yellow-darker !important;
+  }
+  .btn-primary:hover,
+  .btn-primary:focus,
+  .btn-primary.focus,
+  .btn-warning:hover,
+  .btn-warning:focus,
+  .btn-warning.focus {
+    background-color: @yellow-dark !important;
+  }
+  .btn-danger { background-color: @red-dark !important; }
+  .btn-danger:hover,
+  .btn-danger:focus,
+  .btn-danger.focus { background-color: @red-light !important; }
+
+
+  .modal-header {
+    background: @background-3 !important;
+    border-bottom-color: @background-5 !important;
+  }
+  .modal-content {
+    border: 2px solid @background-5 !important;
+    background-color: @background-2 !important;
+  }
+  .modal-footer {
+    border-color: @background-5 !important;
+    background-color: @background-3 !important;
+  }
+
+  .alert-info,
+  .alert-warning,
+  .alert-danger { color: @background-1 !important; }
+  .alert-danger { background-color: @red-dark !important; }
+
+  .help-block { color: @foreground-3 !important; }
+  .form-control {
+    color: @foreground-4 !important;
+    border-color: @background-5 !important;
+    background-color: @background-2 !important;
+  }
+  code.ng-binding {
+    color: @red-light !important;
+    background-color: @background-4 !important;
+  }
+  .well,
+  .form-control[readonly="readonly"],
+  .popover {
+    border-color: @background-5 !important;
+    background-color: @background-3 !important;
+    color: @foreground-5 !important;
+  }
+    
+  .pagination > li > a,
+  .pagination > li > span,
+  .pagination > li > a:hover,
+  .pagination > li > a:focus,
+  .pagination > li > a.focus {
+    background-color: red !important;
+    border-color: red !important;
+  }
+
+  .progress-bar { background-color: @blue-1 !important; }
+  .progress-bar-success { background-color: @green-1 !important; }
+  .progress-bar-info { background-color: @purple-1 !important; }
+  .progress-bar-warning { background-color: @yellow-light !important; }
+  .progress-bar-danger { background-color: @red-light !important; }
+  .progress .frontal { color: @background-1 !important; }
+
+  .text-info { color: @purple-1 !important; }
+  .text-primary { color: @blue-1 !important; }
+  .text-success { color: @green-2 !important; }
+
+  .fancytree-container tr:hover,
+  .fancytree-focused { background-color: red !important; }
+
+  .checkbox[disabled] { background-color: @background-3 !important; }
+  .checkbox[disabled] *,
+  .checkbox[disabled] .help-block { color: @gray-1 !important; }
+}

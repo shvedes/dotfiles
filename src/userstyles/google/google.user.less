@@ -1,0 +1,349 @@
+/* ==UserStyle==
+@name           Gruvbox Dark for Google
+@namespace      github.com/openstyles/stylus
+@version        1.0.0
+@description    Gruvbox Dark for Google
+@author         shved
+@preprocessor   less
+==/UserStyle== */
+
+@-moz-document domain("www.google.com") {
+    
+    @background-hard:	rgba(29, 32, 33, 1);
+    @background:		rgba(40, 40, 40, 1);
+
+    @background-alt:    rgba(33, 33, 33, 1);
+    @background-soft:   rgba(50, 48, 47, 1);
+
+    @background-1:      rgba(60, 56, 54, 1);
+    @background-2:      rgba(80, 73, 69, 1);
+    @background-3:      rgba(102, 92, 84, 1);
+    @background-4:      rgba(124, 111, 100, 1);
+
+    @gray-dark:         rgba(146, 131, 116, 1);
+    @gray-light:        rgba(168, 153, 132, 1);
+
+    @foreground-hard:   rgba(251, 241, 199, 1);
+    @foreground:        rgba(235, 219, 178, 1);
+    @foreground-1:      rgba(213, 196, 161, 1);
+    @foreground-2:      rgba(189, 174, 147, 1);
+    @foreground-3:      rgba(168, 153, 132, 1);
+
+    @red-dark:          rgba(204, 36, 29, 1);
+    @red-light:			rgba(251, 73, 52, 1);
+    
+    @orange-dark:       rgba(214, 93, 14, 1);
+    @orange-light:      rgba(254, 128, 25, 1);
+    
+    @yellow-dark:       rgba(215, 153, 33, 1);
+    @yellow-light:      rgba(250, 189, 47, 1);
+    
+    @purple-dark:		rgba(177, 98, 134, 1);
+    @purple-light:      rgba(211, 134, 155, 1);
+    
+    @blue-dark:         rgba(69, 133, 136, 1);
+    @blue-light:        rgba(131, 165, 152, 1);
+    
+    @aqua-dark:         rgba(104, 157, 106, 1);
+    
+    @green-dark:        rgba(152, 151, 26, 1);
+	@green-light:       rgba(184, 187, 38, 1);
+    
+    @accent: @yellow-dark;
+    @accent-hover: @yellow-light;
+    
+    @link:    @blue-dark;
+    @link-visited: @purple-dark;
+    @link-hover: @blue-light;
+    @link-visited-hover: @purple-light;
+    
+    @text: @foreground;
+    @text-muted: @foreground-1;
+    @text-muted-secondary: @foreground-2;
+    
+    @border: @background-2;
+    @border-hover: @background-3;
+    
+    @button-background: @background-soft;
+    @button-background-hover: @background-1;
+    
+    
+    * {
+        --vZe0jb: #757fa4;
+        --nwXobb: #757fa4;
+        --VuZXBd: @text-muted !important;
+        --uLz37c: #c3c6d6;
+        --jINu6c: @foreground-hard !important;
+        --TyVYld: #8ab4f8;
+        --ZEpPmd: #424654;
+        --QWaaaf: #757fa4;
+        --DEeStf: #242832;
+        --TSWZIb: #2c303d;
+        --BRLwE:  #3a3f50;
+        --gS5jXb: #292c32;
+        --Aqn7xd: #3f434a;
+        --EpFNW:  @background !important;
+        --xhUGwc: @background !important;
+        --Xqboce: #fff;
+        --IXoxUe: #999da9;
+        --bbQxAb: @text-muted !important; /* site description */
+        --IXoxUe: @text-muted-secondary !important;
+        --TMYS9:  #a8c7fa;
+        --JKqx2:  @link !important;
+        --rrJJUc: #a8c7fa;
+        --mXZkqc: #3f424a;
+        --Nsm0ce: #a8c7fa;
+        --vdwxpe: #0b57d0;
+        --ywz01c: #fdd663;
+        --XKMDxc: @button-background !important;
+        --aYn2S:  @button-background !important;
+        --Lm570b: #3f4454;
+        --COEmY:   @foreground !important;
+        --YLNNHc:  @foreground-hard !important;
+        --todMNcl: @background !important;
+        
+        --uv-styles-color-icon-on-secondary: @text-muted-secondary !important;
+        --uv-styles-color-text-emphasis: @foreground-hard !important
+    }
+    
+    a {
+        color: @link !important
+    }
+    a:hover {
+        color: @link-hover !important
+    }
+    a:visited {
+        color: @link-visited !important
+    }
+    a:visited:hover,
+    .WggQGd{
+        color: @link-visited-hover !important
+    }
+    
+    .vDF3Oc.vDF3Oc .R8BTeb,
+    .usJj9c .zz3gNc,
+    .fKmH1e,
+    .JCHpcb,
+    .mEQved,
+    .zbRPDe,
+    .ylgVCe,
+    .Lu57id,
+    .xTFaxe,
+    .ZeVBtc,
+    .aHK1bd,
+    .zqrO0,
+    .tGYVp,
+    .T38yZ,
+    .EwDHG,
+    .scU1d,
+    .YmvwI,
+    .cB9M7,
+    cite {
+        color: @text-muted-secondary !important
+    }
+    
+    .ClJ9Yb {
+        color: @foreground-3 !important
+    }
+    
+    .gLFyf,
+    .cS4Vcb-PvZLI-ZWuC2-upF8td-JaPV2b,
+    .p4pvTd,
+    .Qwbd3 {
+        color: @foreground !important
+    }
+    
+    body, .NrdQVe {
+        background: @background !important
+    }
+    
+    .c93Gbe {
+        background: @background-hard !important
+    }
+    
+    .cUnQKe .ILfuVd b,
+    [selected].YmvwI,
+    .gb_H .gb_F,
+    .zFcCq,
+    .w2fKdd,
+    .VuuXrf,
+    .LGwnxb,
+    .nDgy9d,
+    .dg6jd {
+        color: @foreground-hard !important
+    }
+    
+    .aj35ze,
+    .yiwlZe,
+    .Ty0Rrc,
+    .HIj4Tb,
+    .yzaO0d,
+    .ExCKkf,
+    .VTMWGb .uj1Jfd .MjJqGe.KWdwWd {
+        fill: @foreground-hard !important
+    }
+    
+    .WjVzzd {
+        fill: @foreground !important
+    }
+    
+    .pZvJc .KTBKoe:hover {
+        color: @foreground !important
+    }
+    
+    .p047Gf,
+    .rXoM2c,
+    .gaCOcc,
+    .z1asCe svg,
+    .wgbRNb.T9Wh5 g-fab,
+    .wgbRNb.T9Wh5:hover g-fab {
+        fill: @text-muted-secondary !important;
+        color: @text-muted-secondary !important;
+    }
+    
+    .cUnQKe .ILfuVd b {
+        background: @background-1 !important
+    }
+    
+    .ZFiwCf,
+    .xab99e .niO4u,
+    .RNNXgb {
+        background: @button-background-hover !important;
+        outline: 1px solid @border !important
+    }
+    .ZFiwCf:hover,
+    .xab99e .niO4u:hover,
+    .rnnxgb:hover,
+    .aajZCb:hover {
+        background: @button-background-hover !important;
+        outline: 1px solid @border-hover !important
+    }
+    
+    .aajZCb,
+    .aajZCb {
+        background: @button-background-hover !important;
+        outline: 1px solid @border-hover !important
+    }
+    
+    .p8Jhnd, 
+    .vIifob {
+        background: @button-background-hover !important
+    }
+    .p8Jhnd:hover, 
+    .vIifob:hover {
+        background: @button-background !important
+    }
+    
+    [selected].YmvwI {
+        border-bottom: 2px solid @foreground-hard !important
+    }
+    
+    .zgAlFc,
+    .DV7the {
+        color: @accent !important
+    }
+    .ibX8Cd {
+        background-color: @accent !important
+    }
+    .ibX8Cd:hover {
+        background-color: @accent-hover !important
+    }
+    
+    
+    .wM6W7d {
+        color: @foreground-hard
+    }
+    
+    .sbhl {
+        background: @background-2 !important
+    }
+    
+    .W0urI.UivI7b:not([data-nohu]):not(.Vefsqb),
+    .NzSfif {
+        background: @background-soft !important
+    }
+    .W0urI.UivI7b:not([data-nohu]):not(.Vefsqb):hover,
+    .K34pYd {
+        background: @background-1 !important   
+    }
+    
+    .W0urI .ILfuVd b,
+    .M8OgIe .c2xzTb .ILfuVd b,
+    .s6JM6d .c2xzTb .ILfuVd b {
+        background: @background-2 !important;
+        color:      @foreground-hard !important
+    }
+    
+    .eFM0qc.BCF2pd,
+    .fKmH1e {
+        background: transparent !important
+    }
+    
+    .lJ9FBc input[type="submit"],
+    .wgbRNb.T9Wh5 g-fab,
+    .VdehBf.btpNFe g-fab,
+    .nfSF8e.hdtb-tl-sel,
+    .BaegVc.hdtb-tl-sel,
+    [selected].GKS7s,
+    .efwPxe,
+    .A7KlJf,
+    .Qwbd3,
+    .cB9M7 {
+        background: @button-background !important;
+        border: 1px solid @border !important
+    }
+    .lJ9FBc input[type="submit"]:hover,
+    .wgbRNb.T9Wh5:hover g-fab,
+    .VdehBf.btpNFe:hover g-fab,
+    .nfSF8e.hdtb-tl-sel:hover,
+    [selected].GKS7s:hover,
+    .BaegVc.hdtb-tl-sel:hover,
+    .efwPxe:hover,
+    .A7KlJf:hover,
+    .Qwbd3:hover, 
+    .cB9M7:hover {
+        border: 1px solid @border-hover !important
+    }
+    
+    .lJ9FBc input[type="submit"] {
+        color: @foreground !important;
+        border-radius: 8px !important
+    }
+    
+    .trF0Y .RpqMib,
+    .GKS7s {
+        box-shadow: none !important;
+        border: 1px solid @border !important
+    }
+    .GKS7s:hover {
+        border: 1px solid @border-hover !important
+    }
+    
+    .xtSCL {
+        border: none !important
+    }
+    
+    .XkISS {
+        color: @link !important
+    }
+    
+    .tGYVp {
+        background: transparent !important
+    }
+    
+    .XDyW0e {
+        display: none !important
+    }
+    
+    .RpqMib::after {
+        border-top: @border-hover !important
+    }
+    
+    .RpqMib:hover {
+        background: @background-1 !important
+    }
+    
+    .trF0Y .RpqMib {
+        background: @background-soft !important
+    }
+}

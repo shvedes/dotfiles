@@ -1,0 +1,125 @@
+/* ==UserStyle==
+@name           Gruvbox Dark for Wikipedia
+@namespace      github.com/openstyles/stylus
+@version        1.0.0
+@description    Gruvbox Dark for Wikipedia
+@author         shved
+@preprocessor   less
+==/UserStyle== */
+
+@-moz-document domain("wikipedia.org") {
+    @background-hard:	rgba(29, 32, 33, 1);
+    @background:		rgba(40, 40, 40, 1);
+
+    @background-alt:    rgba(33, 33, 33, 1);
+    @background-soft:   rgba(50, 48, 47, 1);
+
+    @background-1:      rgba(60, 56, 54, 1);
+    @background-2:      rgba(80, 73, 69, 1);
+    @background-3:      rgba(102, 92, 84, 1);
+    @background-4:      rgba(124, 111, 100, 1);
+
+    @gray-dark:         rgba(146, 131, 116, 1);
+    @gray-light:        rgba(168, 153, 132, 1);
+
+    @foreground-hard:   rgba(251, 241, 199, 1);
+    @foreground:        rgba(235, 219, 178, 1);
+    @foreground-1:      rgba(213, 196, 161, 1);
+    @foreground-2:      rgba(189, 174, 147, 1);
+    @foreground-3:      rgba(168, 153, 132, 1);
+
+    @red-dark:          rgba(204, 36, 29, 1);
+    @red-light:			rgba(251, 73, 52, 1);
+    
+    @orange-dark:       rgba(214, 93, 14, 1);
+    @orange-light:      rgba(254, 128, 25, 1);
+    
+    @yellow-dark:       rgba(215, 153, 33, 1);
+    @yellow-light:      rgba(250, 189, 47, 1);
+    
+    @purple-dark:		rgba(177, 98, 134, 1);
+    @purple-light:      rgba(211, 134, 155, 1);
+    
+    @blue-dark:         rgba(69, 133, 136, 1);
+    @blue-light:        rgba(131, 165, 152, 1);
+    
+    @aqua-dark:         rgba(104, 157, 106, 1);
+    
+	@green-light:       rgba(184, 187, 38, 1);
+    @green-dark:        rgba(152, 151, 26, 1);
+    
+    @accent:                  @yellow-dark;
+    @accent-hover:            @yellow-light;
+    
+    @link:                    @blue-dark;
+    @link-visited:            @purple-dark;
+    @link-hover:              @blue-light;
+    @link-visited-hover:      @purple-light;
+    
+    @text:                    @foreground;
+    @text-muted:              @foreground-1;
+    @text-muted-secondary:    @foreground-2;
+    
+    @border:                  @background-2;
+    @border-hover:            @background-3;
+    
+    @button-background:       @background-soft;
+    @button-background-hover: @background-1;
+    
+    html.skin-theme-clientpref-night {
+        --color-base:                             @foreground           !important;
+        --color-inverted-fixed:                   @foreground-hard      !important;
+        --color-subtle:                           @text-muted-secondary !important;
+        --color-placeholder:                      @text-muted-secondary !important;
+        
+        --background-color-base:                  @background      !important;
+        --background-color-base-fixed:            @foreground      !important;
+        --color-progressive:                      @blue-dark       !important;
+        --color-progressive--hover:               @blue-light      !important;
+                                                  
+        --color-progressive--focus:               @blue-dark !important;
+        --color-destructive--focus:               @blue-dark !important;
+        --background-color-progressive:           @blue-dark !important;
+        --background-color-input-binary--checked: @blue-dark !important;
+        --outline-color-progressive--focus:       @blue-dark !important;
+        --background-color-progressive--hover:    @blue-dark !important;
+        
+        --background-color-progressive-subtle--active: @background-soft !important;
+        --background-color-interactive-subtle:         @background-soft !important;
+        --background-color-neutral-subtle:             @background-soft !important;
+        --background-color-progressive-subtle:         @background-soft !important;
+        --background-color-progressive-subtle--hover:  @background-1    !important;
+        
+        --border-color-subtle:             @border       !important;
+        --border-color-interactive:        @border       !important;
+        --border-color-progressive--focus: @border-hover !important;
+        
+        --box-shadow-color-progressive--focus: transparent !important;
+        
+        --background-color-content-added: transparent !important;
+    }
+    
+    .cdx-button:enabled.cdx-button--weight-quiet,
+    .cdx-button:enabled:focus:not(:active):not(.cdx-button--is-active) {
+        background-color: transparent !important;
+        border-color:     transparent !important;
+        box-shadow:         none        !important;
+        border:             none        !important;
+    }
+    
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        color: @foreground-hard !important
+    }
+    
+    a {
+        color: @link !important
+    }
+    a:hover {
+        color: @link-hover !important
+    }
+}

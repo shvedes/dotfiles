@@ -1,0 +1,204 @@
+/* ==UserStyle==
+@name           Gruvbox Dark for ChatGPT
+@namespace      github.com/openstyles/stylus
+@version        1.0.0
+@description    Gruvbox Dark for ChatGPT
+@author         shved
+@preprocessor   less
+==/UserStyle== */
+
+@-moz-document domain("chatgpt.com") {
+    @background-hard:	rgba(29, 32, 33, 1);
+    @background:		rgba(40, 40, 40, 1);
+
+    @background-alt:    rgba(33, 33, 33, 1);
+    @background-soft:   rgba(50, 48, 47, 1);
+
+    @background-1:      rgba(60, 56, 54, 1);
+    @background-2:      rgba(80, 73, 69, 1);
+    @background-3:      rgba(102, 92, 84, 1);
+    @background-4:      rgba(124, 111, 100, 1);
+
+    @gray-dark:         rgba(146, 131, 116, 1);
+    @gray-light:        rgba(168, 153, 132, 1);
+
+    @foreground-hard:   rgba(251, 241, 199, 1);
+    @foreground:        rgba(235, 219, 178, 1);
+    @foreground-1:      rgba(213, 196, 161, 1);
+    @foreground-2:      rgba(189, 174, 147, 1);
+    @foreground-3:      rgba(168, 153, 132, 1);
+
+    @red-dark:          rgba(204, 36, 29, 1);
+    @red-light:			rgba(251, 73, 52, 1);
+    
+    @orange-dark:       rgba(214, 93, 14, 1);
+    @orange-light:      rgba(254, 128, 25, 1);
+    
+    @yellow-dark:       rgba(215, 153, 33, 1);
+    @yellow-light:      rgba(250, 189, 47, 1);
+    
+    @purple-dark:		rgba(177, 98, 134, 1);
+    @purple-light:      rgba(211, 134, 155, 1);
+    
+    @blue-dark:         rgba(69, 133, 136, 1);
+    @blue-light:        rgba(131, 165, 152, 1);
+    
+    @aqua-dark:         rgba(104, 157, 106, 1);
+    
+	@green-light:       rgba(184, 187, 38, 1);
+    @green-dark:        rgba(152, 151, 26, 1);
+    
+    @accent:                  @yellow-dark;
+    @accent-hover:            @yellow-light;
+    
+    @link:                    @blue-dark;
+    @link-visited:            @purple-dark;
+    @link-hover:              @blue-light;
+    @link-visited-hover:      @purple-light;
+    
+    @text:                    @foreground;
+    @text-muted:              @foreground-1;
+    @text-muted-secondary:    @foreground-2;
+    
+    @border:                  @background-2;
+    @border-hover:            @background-3;
+    
+    @button-background:       @background-soft;
+    @button-background-hover: @background-1;
+    
+    * {
+        --main-surface-background: @background           !important;
+        --main-surface-primary:    @background           !important;
+        --text-error:              @red-dark             !important;
+        --link:                    @link                 !important;
+        --link-hover:              @link-hover           !important;
+        --dot-color:               @foreground-hard      !important;
+                                                         
+        --text-primary:            @foreground           !important;
+        --text-secondary:          @text-muted           !important;
+        --text-tertiary:           @text-muted-secondary !important;
+        --text-quaternary:         @gray-dark            !important;
+        --text-placeholder:        @foreground           !important;
+        
+        --message-surface:          @background-soft     !important;
+        --sidebar-surface-primary:  @background-hard     !important;
+        
+        --hint-text:                @blue-dark           !important;
+        --tag-blue:                 @blue-dark           !important;
+        --tag-blue-light:           @blue-light          !important;
+        --hint-bg:                  @blue-light          !important;
+        
+        --border-light:             @border              !important;
+        --white:                    @foreground-hard     !important;
+        
+        --gray-700:                 @background-1        !important;
+        
+        --border-medium:            @border              !important;
+        --border-light:             @background-1        !important;
+        
+        border: 0 solid @border
+    }
+    
+    h1,
+    .text-2xl {
+        color: @foreground-hard !important
+    }
+    
+    .dark\:radix-state-checked\:bg-green-600[data-state="checked"]:is(.dark *) {
+        background-color: @green-dark !important
+    }
+    .dark\:radix-state-checked\:border-green-600[data-state="checked"]:is(.dark *) {
+        border-color: @green-dark !important
+    }
+    
+    .btn-green {
+        background-color: @green-dark !important
+    }
+    .btn-green:hover {
+        color: @foreground-hard !important;
+        background-color: @green-light !important
+    }
+    .border-green-600 {
+        border-color: @green-dark !important
+    }
+    .text-green-600 {
+        color: @green-dark !important;
+    }
+    .bg-green-600 {
+        background-color: transparent !important
+    }
+    
+    .md\:max-h-\[calc\(100vh-300px\)\],
+    .icon-md {
+        color: @foreground !important
+    }
+    
+    .bg-white {
+        background-color: @foreground
+    }
+    
+    .dark\:text-\[\#48AAFF\]:is(.dark *) {
+        background: @accent !important;
+        color: @background  !important
+    }
+    .dark\:can-hover\:hover\:bg-\[\#1A416A\]:hover:is(.dark *) {
+        color: @background !important;
+        background-color: @accent-hover !important
+    }
+    
+    .dark\:bg-white:is(.dark *),
+    .btn-primary:is(.dark *) {
+        background-color: @foreground !important
+    }
+    .btn-primary:hover:is(.dark *) {
+        background-color: @foreground-hard !important
+    }
+    .btn-danger {
+        background-color: @red-dark !important;
+    }
+    .btn-danger:hover {
+        background-color: @red-light !important;
+    }
+    
+    .hover\:bg-token-sidebar-surface-secondary {
+        display: none !important
+    }
+    
+    .text-sm,
+    .min-w-0 {
+        color: @foreground !important
+    }
+    
+    circle {
+        fill: @blue-dark !important
+    }
+    
+    .dark code[class*="language-"] {
+        color: @foreground !important
+    }
+    .dark .hljs-keyword {
+        color: @blue-dark !important
+    }
+    .dark .hljs-title {
+        color: @red-dark !important
+    }
+    .dark .hljs-string {
+        color: @green-dark !important
+    }
+    .dark .hljs-literal,
+    .ͼ1s {
+        color: @blue-light !important
+    }
+    .dark .hljs-built_in,
+    .ͼ1z {
+        color: @orange-dark !important
+    }
+    .dark .hljs-comment,
+    .ͼ24 {
+        color: @background-4 !important
+    }
+    
+    .ͼ1r {
+        color: @purple-dark
+    }
+}

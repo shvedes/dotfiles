@@ -1,0 +1,253 @@
+/* ==UserStyle==
+@name           Gruvbox Dark for Hyprland Wiki
+@namespace      github.com/openstyles/stylus
+@version        1.0.0
+@description    Gruvbox Dark for Hyprland Wiki
+@author         shved
+@preprocessor   less
+==/UserStyle== */
+
+@-moz-document domain("wiki.hyprland.org") {
+    
+    @background-1: rgb(29, 32, 33);
+    @background-2: rgb(40, 40, 40);
+    @background-3: rgb(50, 48, 47);
+    @background-4: rgb(60, 56, 54);
+    @background-5: rgb(80, 73, 69);
+    @background-6: rgb(102, 92, 84);
+    @background-7: rgb(124, 111, 100);
+    
+    @gray-1:rgb(146, 131, 116);
+    @gray-2:rgb(168, 153, 132);
+    
+    @foreground-1: rgb(251, 241, 199);
+    @foreground-2: rgb(235, 219, 178);
+    @foreground-3: rgb(213, 196, 161);
+    @foreground-4: rgb(189, 174, 147);
+    @foreground-5: rgb(168, 153, 132);
+    
+    @purple-light: rgb(211, 134, 155);
+    
+    @yellow-darker: rgb( 194, 138, 30);
+    @yellow-dark: rgb(215, 153, 33);
+    @yellow-light:rgb(250, 189, 47);
+    
+    @blue-1: rgb( 69, 133, 136);
+    @blue-2: rgb(131, 165, 152);
+    @blue-bright: rgb(162, 187, 178);
+    
+    @green-1: rgb(152, 151, 26);
+    @green-2: rgb(184, 187, 38);
+    
+    @purple-1: rgb(177, 98, 134);
+    @purple-2: rgb(211, 134, 155);
+    
+    @red-dark: rgb(204, 36, 29);
+    @red-light: rgb(251, 73, 52);
+    
+    @accent: @yellow-dark;
+    @accent-darker: @yellow-darker;
+    @accent-hover: @yellow-light;
+    
+    @border-1: @background-4;
+    @border-2: @background-5;
+    @border-3: @gray-1;
+    @button-border: @border-1;
+    
+    @icon: @foreground-5;
+    
+    @text-hard: @foreground-1;
+    @text-primary: @foreground-2;
+    @text-secondary: @foreground-3;
+    @text-muted-1: @foreground-4;
+    @text-muted-2: @foreground-5;
+    
+    @text-0: @foreground-4;
+    @text-1: @foreground-5;
+    
+    body:is(html[class~="dark"] *) {
+        color: @foreground-2 !important;
+        background: @background-2 !important;
+    } 
+    
+    h1, h2, h3, h4, h5, h6 {
+        color: @foreground-1 !important
+    }
+    
+    /* search bar */
+    .dark\:hx-bg-gray-50\/10:is(html[class~="dark"] *) {
+        background: @background-3 !important
+    }
+    /* shortcut border */
+    .dark\:hx-border-gray-100\/20:is(html[class~="dark"] *) {
+        border-color: @background-5 !important
+    }
+    .dark\:hx-bg-dark\/50:is(html[class~="dark"] *) {
+        background: @background-2 !important;
+        color: @foreground-5 !important
+    }
+    /* Search placeholder */
+    .dark\:placeholder\:hx-text-gray-400:is(html[class~="dark"] *)::placeholder {
+        color: @foreground-5 !important
+    }
+    
+    /* links */
+    .content :where(a):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+        color: @blue-1 !important
+    }
+    .content :where(a):not(:where([class~="not-prose"], [class~="not-prose"] *)):hover {
+        color: @blue-2 !important
+    }
+  
+    /* sidebar */
+    .md\:hx-h-\[calc\(100vh-var\(--navbar-height\)-var\(--menu-height\)\)\] {
+        background: @background-1 !important
+    }
+    
+    /* tab text color */
+    .dark\:hx-text-neutral-400:is(html[class~="dark"] *) {
+        color: @foreground-5 !important
+    }
+    .dark\:hover\:hx-text-gray-50:hover:is(html[class~="dark"] *) {
+        color: @foreground-2 !important
+    }
+    
+    /* tab background color on hover */
+    .dark\:hover\:hx-bg-primary-100\/5:hover:is(html[class~="dark"] *) {
+        background: @background-2 !important
+    }
+    
+    /* active tab */
+    .dark\:hx-text-primary-600:is(html[class~="dark"] *) {
+        background: @background-3 !important;
+        color: @foreground-1 !important
+    }
+    
+    /* dark / light theme toggle */
+    .dark\:hx-bg-dark:is(html[class~="dark"] *) {
+        background: @background-2 !important;
+        box-shadow: none !important
+    }
+    .dark\:hx-text-gray-400:is(html[class~="dark"] *) {
+        color: @foreground-5 !important
+    }
+    
+    /* some text */
+    .dark\:hx-text-gray-100:is(html[class~="dark"] *) {
+        color: @foreground-3 !important
+    } /* next chapter */
+    .dark\:hx-text-gray-300:is(html[class~="dark"] *) {
+        color: @foreground-1 !important
+    } /* markdown's quote */
+    .content :where(blockquote):not(:where([class~="not-prose"], [class~="not-prose"] *)):is(html[class~="dark"] *) {
+        color: @foreground-5 !important;
+        border-left: 2px solid @background-5 !important
+    }
+    
+    /* code block */
+    .hextra-code-block pre:is(html[class~="dark"] *) {
+        background: @background-3 !important
+    } /* copy button */
+    .dark\:hx-bg-primary-300\/10:is(html[class~="dark"] *) {
+        background: @background-4 !important
+    }
+    
+    /* warning box */
+    .dark\:hx-text-yellow-200:is(html[class~="dark"] *),
+    .dark\:hx-text-orange-300:is(html[class~="dark"] *) {
+        /* background: rgba( 215, 153, 33, 0.2) !important; */
+        background: @background-3 !important;
+        border: 0.1em solid @yellow-darker !important;
+        border-color: @yellow-dark !important;
+        color: @foreground-2 !important
+    }
+    
+    /* info box */
+    .dark\:hx-text-blue-200:is(html[class~="dark"] *) {
+        background: @background-3 !important;
+        border-color: @blue-2 !important;
+        color: @foreground-2 !important
+    }
+    
+    /* table */
+    .content :where(table):not(:where(.hextra-code-block table, [class~="not-prose"], [class~="not-prose"] *)) th:is(html[class~="dark"] *),
+    .content :where(table):not(:where(.hextra-code-block table, [class~="not-prose"], [class~="not-prose"] *)) td:is(html[class~="dark"] *) {
+        border-color: @background-6 !important
+    }
+    
+    /* ================= */
+    /* search suggestions */
+    /* ================= */
+    
+    /* main pop-up window */
+    .dark\:hx-bg-neutral-900:is(html[class~="dark"] *) {
+        background: @background-2 !important;
+        border: 1px solid @background-5 !important
+    } /* Title */
+    .search-wrapper .prefix:is(html[class~="dark"] *) {
+        color: @foreground-2 !important
+    } /* active entry */
+    .search-wrapper li .active {
+        background: @background-4 !important;
+        color: @foreground-1 !important
+    } /* match highlight */
+    .search-wrapper .match {
+        color: @yellow-dark !important
+    } /* entry description */
+    .search-wrapper .excerpt:is(html[class~="dark"] *) {
+        color: @foreground-5 !important
+    } /* inactive entry */
+    .search-wrapper li .title {
+        color: @foreground-2 !important
+    }
+    
+    /* hard to explain */
+    .dark\:hover\:hx-bg-neutral-800:hover:is(html[class~="dark"] *) {
+        background: @background-3 !important
+    }
+    
+    /* ================= */
+    /* syntax highlighting */
+    /* ================= */
+    
+    /* string */
+    .dark .highlight .chroma .s2 {
+        color: @blue-2 !important
+    }
+    /* "&&" */
+    /* equal */
+    .dark .highlight .chroma .o {
+        color: @yellow-darker !important
+    }
+    /* comment */
+    /* shebang */
+    .dark .highlight .chroma .c1,
+    .dark .highlight .chroma .cp {
+        color: @gray-1 !important
+    }
+    /* backslash */
+    /* int */
+    .dark .highlight .chroma .se,
+    .dark .highlight .chroma .m,
+    .dark .highlight .chroma .s,
+    .dark .highlight .chroma .nv {
+        color: @blue-2 !important
+    }
+    .highlight .chroma .na {
+        color: @foreground-3 !important
+    }
+    .dark .highlight .chroma .nt {
+        color: @green-1 !important
+    }
+    .dark .highlight .chroma .l,
+    .dark .highlight .chroma .s1 {
+        color: @blue-bright !important
+    }
+    .highlight .chroma .nb,
+    .dark .highlight .chroma .si {
+        color: @purple-2 !important
+    }
+    .dark .highlight .chroma .k {
+        color: @red-light !important
+    }
+}
